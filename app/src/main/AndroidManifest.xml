@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneProject">
         <activity
-            android:name=".MainActivity"
+            android:name=".SavedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GroceryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SwipeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
