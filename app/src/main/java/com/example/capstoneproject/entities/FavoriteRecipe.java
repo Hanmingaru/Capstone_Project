@@ -19,14 +19,14 @@ import org.jetbrains.annotations.NotNull;
 // Use `@Fts3` only if your app has strict disk space requirements or if you
 // require compatibility with an older SQLite version.
 @Fts4
-@Entity(tableName = "recipe")
-public class Recipe {
+@Entity(tableName = "favorite_recipe")
+public class FavoriteRecipe {
 
      /*
     ========================================================
     Instance variables representing the attributes (columns)
-    of the Recipe table in the RecipeDB database.
-    CREATE TABLE Recipe
+    of the FavoriteRecipe table in the RecipeDB database.
+    CREATE TABLE FavoriteRecipe
     (
         rowid INT UNSIGNED NOT NULL AUTO_INCREMENT,
         name VARCHAR(512) NOT NULL
@@ -47,31 +47,31 @@ public class Recipe {
 
     /*
     ==============================================================
-    Class constructors for instantiating a Recipe entity object to
-    represent a row in the Recipe table in the RecipeDB database.
+    Class constructors for instantiating a FavoriteRecipe entity object to
+    represent a row in the FavoriteRecipe table in the FavoriteRecipeDB database.
     ==============================================================
     */
-    public Recipe() {
+    public FavoriteRecipe() {
     }
 
-    public Recipe(Integer id) {
+    public FavoriteRecipe(Integer id) {
         this.id = id;
     }
 
-    public Recipe(Integer id, @NotNull String name) {
+    public FavoriteRecipe(Integer id, @NotNull String name) {
         this.id = id;
         this.name = name;
     }
 
     @Ignore
-    public Recipe(@NotNull String name) {
+    public FavoriteRecipe(@NotNull String name) {
         this.name = name;
     }
 
     /*
     ======================================================
     Getter and Setter methods for the attributes (columns)
-    of the Recipe table in the RecipeDB database.
+    of the FavoriteRecipe table in the FavoriteRecipeDB database.
     ======================================================
     */
 
@@ -99,16 +99,16 @@ public class Recipe {
      */
 
     /*
-     Checks if the Recipe object identified by 'object' is the same as the Recipe object
-     identified by 'id' Parameter object = Recipe object identified by 'object'
-     Returns True if the Recipe 'object' and 'id' are the same; otherwise, return False
+     Checks if the FavoriteRecipe object identified by 'object' is the same as the FavoriteRecipe object
+     identified by 'id' Parameter object = FavoriteRecipe object identified by 'object'
+     Returns True if the FavoriteRecipe 'object' and 'id' are the same; otherwise, return False
      */
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Recipe)) {
+        if (!(object instanceof FavoriteRecipe)) {
             return false;
         }
-        Recipe other = (Recipe) object;
+        FavoriteRecipe other = (FavoriteRecipe) object;
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
