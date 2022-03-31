@@ -6,7 +6,7 @@
 package com.example.capstoneproject.globals;
 
 /*
- * Use this class exclusivly to set global variables for the
+ * Use this class exclusively to set global variables for the
  * application. This is done so updating these variables is easy
  * and will not cause errors.
  */
