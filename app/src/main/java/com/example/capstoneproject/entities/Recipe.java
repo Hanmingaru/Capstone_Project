@@ -7,6 +7,7 @@
 
 package com.example.capstoneproject.entities;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.Size;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -29,7 +30,8 @@ public class Recipe {
     CREATE TABLE Recipe
     (
         rowid INT UNSIGNED NOT NULL AUTO_INCREMENT,
-        name VARCHAR(512) NOT NULL
+        name VARCHAR(512) NOT NULL,
+        favorite INT NOT NULL DEFAULT_VALUE(0)
     );
     ========================================================
      */
@@ -44,6 +46,12 @@ public class Recipe {
     @Size(min = 1, max = 512)
     @NotNull
     private String name;
+
+    // Flag to mark recipe as a favorite
+    // Stored as an Integer in the database
+    @ColumnInfo(name = "favorite")
+    @NotNull
+    private Boolean favorite;
 
     /*
     ==============================================================
@@ -90,6 +98,15 @@ public class Recipe {
 
     public void setName(@NotNull String name) {
         this.name = name;
+    }
+
+    @NotNull
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(@NotNull Boolean favorite) {
+        this.favorite = favorite;
     }
 
     /*

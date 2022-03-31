@@ -17,12 +17,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.capstoneproject.daos.FavoriteRecipeDao;
 import com.example.capstoneproject.daos.RecipeDao;
-import com.example.capstoneproject.entities.FavoriteRecipe;
 import com.example.capstoneproject.entities.Recipe;
 
-@Database(entities = {Recipe.class, FavoriteRecipe.class}, version=1)
+@Database(entities = {Recipe.class}, version=1)
 public abstract class RecipeDB extends RoomDatabase {
 
     private static final String DB_NAME = "recipe_db";
@@ -40,7 +38,5 @@ public abstract class RecipeDB extends RoomDatabase {
 
 
     public abstract RecipeDao recipeDao();
-
-    public abstract FavoriteRecipeDao favoriteRecipeDao();
 
 }

@@ -20,6 +20,12 @@ import java.util.List;
 @Dao
 public interface RecipeDao {
 
+    /*
+    ===========================
+    |       All Queries       |
+    ===========================
+    */
+
     @Query("SELECT * FROM recipe")
     List<Recipe> getAll();
 
@@ -31,6 +37,15 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM recipe WHERE name LIKE :name LIMIT 1")
     Recipe findByName(String name);
+
+    /*
+    ================================
+    |       Favorite Queries       |
+    ================================
+    */
+
+    @Query("SELECT * FROM recipe WHERE name LIKE :name AND favorite == 1")
+    List<Recipe> loadFavoritesByName(String name);
 
     // ... notation means that 0 or more Recipe object
     // will be passed in as an array
