@@ -30,5 +30,11 @@
             swipedeck:rotation_degrees="15" />
 
     </com.daprlabs.cardstack.SwipeFrameLayout>
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/navbar_fragment_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.capstoneproject.NavBarFragment" />
 
 </RelativeLayout>

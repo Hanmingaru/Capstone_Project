@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_cart.xml" value="0.2685" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_folder.xml" value="0.2685" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_touch.xml" value="0.2685" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_grocery.xml" value="0.234375" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_saved.xml" value="0.264" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_swipe.xml" value="0.264" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/fragment_nav_bar.xml" value="0.264" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/ic_touch.xml" value="0.1" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/navigation_items.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/recipe_item.xml" value="0.264" />
       </map>
     </option>

@@ -48,6 +48,12 @@ public class SwipeActivity extends AppCompatActivity {
                 Log.i("TAG", "CARDS MOVED UP");
             }
         });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
+                    .commit();
+        }
     }
     private final RandomAPIResponseListener listener = new RandomAPIResponseListener() {
         @Override
