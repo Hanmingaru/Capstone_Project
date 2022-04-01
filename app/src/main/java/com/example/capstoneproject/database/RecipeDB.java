@@ -22,7 +22,9 @@ import androidx.room.RoomDatabase;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 
-
+/**
+ * See RecipeApplication on how to use database
+ */
 @Database(entities = {Recipe.class}, version=1)
 public abstract class RecipeDB extends RoomDatabase {
 

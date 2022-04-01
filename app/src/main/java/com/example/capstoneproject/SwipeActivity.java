@@ -28,7 +28,6 @@ public class SwipeActivity extends AppCompatActivity {
         manager = new RequestManager(this);
         manager.GetRandomRecipes(listener, new ArrayList<>());
         cardStack = findViewById(R.id.swipe_deck);
-        RecipeDB recipeDb = RecipeDB.getInstance(this);
 
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
@@ -40,6 +39,7 @@ public class SwipeActivity extends AppCompatActivity {
             public void cardSwipedRight(int position) {
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
+                // Create recipe object to store in database
                 Recipe recipe = new Recipe("New Recipe");
 
                 // Get Recipe Database Access Object
