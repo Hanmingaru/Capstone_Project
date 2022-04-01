@@ -10,6 +10,7 @@ package com.example.capstoneproject.daos;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -21,11 +22,18 @@ import java.util.List;
 public interface RecipeDao {
 
     /*
-    ===========================
-    |       All Queries       |
-    ===========================
+    ========================================
+    |       Favorite Recipes Queries       |
+    ========================================
     */
+    @Query("SELECT * FROM recipe WHERE name LIKE :name AND favorite == 1")
+    List<Recipe> loadFavoritesByName(String name);
 
+    /*
+    ===================================
+    |       All Recipes Queries       |
+    ===================================
+    */
     @Query("SELECT * FROM recipe")
     List<Recipe> getAll();
 
@@ -39,13 +47,12 @@ public interface RecipeDao {
     Recipe findByName(String name);
 
     /*
-    ================================
-    |       Favorite Queries       |
-    ================================
-    */
-
-    @Query("SELECT * FROM recipe WHERE name LIKE :name AND favorite == 1")
-    List<Recipe> loadFavoritesByName(String name);
+    ======================================
+    |       Recipe CRUD Operations       |
+    ======================================
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertRecipe(Recipe recipe);
 
     // ... notation means that 0 or more Recipe object
     // will be passed in as an array

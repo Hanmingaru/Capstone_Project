@@ -7,12 +7,10 @@
 
 package com.example.capstoneproject.entities;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.Size;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,8 +40,9 @@ public class Recipe {
     @ColumnInfo(name = "rowid")
     private Integer id;
 
+    // Name of the recipe
     @ColumnInfo(name = "name")
-    @Size(min = 1, max = 512)
+    @Size(min = 1, max = 512) // Not sure if Room/SQLite needs this
     @NotNull
     private String name;
 
@@ -52,6 +51,8 @@ public class Recipe {
     @ColumnInfo(name = "favorite")
     @NotNull
     private Boolean favorite;
+
+    /* more attributes ... */
 
     /*
     ==============================================================
@@ -66,14 +67,27 @@ public class Recipe {
         this.id = id;
     }
 
-    public Recipe(Integer id, @NotNull String name) {
-        this.id = id;
+
+    /**
+     * Use this when creating a recipe will all attributes initialized
+     *
+     * @param name
+     * @param favorite
+     */
+    public Recipe(@NotNull String name, @NotNull Boolean favorite) {
         this.name = name;
+        this.favorite = favorite;
     }
 
-    @Ignore
+    /**
+     * Use this constructor when creating Recipe with default values.
+     * Best to use when creating a recipe from swiping to add to database.
+     *
+     * @param name
+     */
     public Recipe(@NotNull String name) {
         this.name = name;
+        this.favorite = false;
     }
 
     /*
