@@ -1,4 +1,5 @@
 package com.example.capstoneproject;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,11 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.daprlabs.cardstack.SwipeDeck;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
 import com.example.capstoneproject.Models.RandomRecipe;
+import com.example.capstoneproject.daos.RecipeDao;
+import com.example.capstoneproject.database.RecipeDB;
+import com.example.capstoneproject.entities.Recipe;
+import com.example.capstoneproject.globals.RecipeApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
+
     private SwipeDeck cardStack;
     private RequestManager manager;
     @Override
@@ -22,6 +28,7 @@ public class SwipeActivity extends AppCompatActivity {
         manager = new RequestManager(this);
         manager.GetRandomRecipes(listener, new ArrayList<>());
         cardStack = findViewById(R.id.swipe_deck);
+
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
@@ -31,6 +38,22 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void cardSwipedRight(int position) {
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
+
+                // Create recipe object to store in database
+                Recipe recipe = new Recipe("New Recipe");
+
+                // Get Recipe Database Access Object
+                final RecipeDao recipeDao = ((RecipeApplication) getApplicationContext())
+                        .getRecipeDB().recipeDao();
+
+                // Run the task
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        recipeDao.insertRecipe(recipe);
+                    }
+                });
+
             }
 
             @Override
