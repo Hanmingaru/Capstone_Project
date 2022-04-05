@@ -12,19 +12,12 @@ public class SavedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
-        Button btn = (Button)findViewById(R.id.swipe_button2);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(SavedActivity.this, SwipeActivity.class));
-            }
-        });
-        Button btn2 = (Button)findViewById(R.id.grocery_button2);
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(SavedActivity.this, GroceryActivity.class));
-            }
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
+                    .commit();
+        }
     }
+
 }
