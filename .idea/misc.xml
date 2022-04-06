@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Chad Mosser/Documents/Projects/Capstone_Project/app/src/main/res/layout/activity_saved.xml" value="0.25" />
+        <entry key="..\:/Users/Chad Mosser/Documents/Projects/Capstone_Project/app/src/main/res/layout/activity_swipe.xml" value="0.32019927536231885" />
+        <entry key="..\:/Users/Chad Mosser/Documents/Projects/Capstone_Project/app/src/main/res/layout/fragment_nav_bar.xml" value="0.1" />
+        <entry key="..\:/Users/Chad Mosser/Documents/Projects/Capstone_Project/app/src/main/res/layout/recipe_item.xml" value="0.32019927536231885" />
+        <entry key="..\:/Users/Chad Mosser/Documents/Projects/Capstone_Project/app/src/main/res/layout/recipe_list_item.xml" value="0.25" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_cart.xml" value="0.2685" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_folder.xml" value="0.2685" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_touch.xml" value="0.2685" />
