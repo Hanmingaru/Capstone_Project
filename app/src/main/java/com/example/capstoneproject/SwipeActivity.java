@@ -50,7 +50,8 @@ public class SwipeActivity extends AppCompatActivity {
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
                 // Create recipe object to store in database
-                Recipe recipe = new Recipe("New Recipe");
+                RandomRecipe recipeResponse = randomRecipes.get(0);
+                Recipe recipe = new Recipe(recipeResponse.getTitle(), recipeResponse.getImage());
 
                 // Get Recipe Database Access Object
                 final RecipeDao recipeDao = ((RecipeApplication) getApplicationContext())

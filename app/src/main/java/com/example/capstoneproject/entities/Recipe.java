@@ -52,6 +52,12 @@ public class Recipe {
     @NotNull
     private Boolean favorite;
 
+    // Flag to mark recipe as a favorite
+    // Stored as an Integer in the database
+    @ColumnInfo(name = "imageUrl")
+    @NotNull
+    private String imageUrl;
+
     /* more attributes ... */
 
     /*
@@ -85,8 +91,9 @@ public class Recipe {
      *
      * @param name
      */
-    public Recipe(@NotNull String name) {
+    public Recipe(@NotNull String name, @NotNull String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
         this.favorite = false;
     }
 
@@ -121,6 +128,15 @@ public class Recipe {
 
     public void setFavorite(@NotNull Boolean favorite) {
         this.favorite = favorite;
+    }
+
+    @NotNull
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(@NotNull String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /*
