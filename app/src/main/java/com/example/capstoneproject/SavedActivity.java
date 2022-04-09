@@ -1,42 +1,55 @@
 package com.example.capstoneproject;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.widget.Button;
+import android.view.View;
 import android.content.Intent;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.capstoneproject.daos.RecipeDao;
+import com.example.capstoneproject.entities.Recipe;
+import com.example.capstoneproject.globals.RecipeApplication;
+
+import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    RecyclerView recyclerView;
+
+    List<Recipe> savedRecipes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
+                    .commit();
+        }
 
-        bottomNavigationView = findViewById(R.id.bottom_nav_bar);
-        bottomNavigationView.setSelectedItemId(R.id.recipe);
+        // Retrieve list of saved recipes from db
+        final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
+                .getRecipeDB().recipeDao();
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                savedRecipes = recipeDao.getAll();
+//            }
+//        });
+        savedRecipes = recipeDao.getAll();
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.swipe) {
-                    startActivity(new Intent(getApplicationContext(), SwipeActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (item.getItemId() == R.id.recipe) {
-                    return true;
-                } else if (item.getItemId() == R.id.grocery) {
-                    startActivity(new Intent(getApplicationContext(), GroceryActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
+        // Setup RecyclerView
+        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, savedRecipes);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                return false;
-            }
-        });
     }
+
 }
