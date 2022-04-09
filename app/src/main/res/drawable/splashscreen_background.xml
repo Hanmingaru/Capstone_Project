@@ -8,9 +8,9 @@
     <item android:drawable="@color/red" />
     <item
         android:gravity="center"
-        android:width="96dp"
-        android:height="96dp"
-        android:drawable="@drawable/ic_food"
+        android:width="192dp"
+        android:height="192dp"
+        android:drawable="@drawable/ic_logo"
         />
 
 </layer-list>
