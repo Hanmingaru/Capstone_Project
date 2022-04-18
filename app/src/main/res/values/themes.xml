@@ -23,7 +23,19 @@
     <!-- ToolBar -->
     <style name="ToolBarTitle" parent="">
         <item name="colorPrimary">@color/red</item>
-        <item name="fontFamily">@font/pacifico</item>
+        <item name="fontFamily">@font/balsamiqbold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="RecipeTitle" parent="">
+        <item name="fontFamily">@font/balsamiqbold</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="RecipeDesc" parent="">
+        <item name="fontFamily">@font/balsamiqreg</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

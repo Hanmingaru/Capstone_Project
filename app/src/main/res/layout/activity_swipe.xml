@@ -31,6 +31,7 @@
                 app:title="TENDER"
                 app:titleCentered="true"
                 app:titleTextColor="@color/white"
+                app:menu="@menu/swipe_menu"
                 />
 
         </com.google.android.material.appbar.AppBarLayout>

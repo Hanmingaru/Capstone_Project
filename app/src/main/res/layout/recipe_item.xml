@@ -18,17 +18,17 @@
             android:id="@+id/recipeImage"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            />
 
         <TextView
             android:id="@+id/recipeName"
             android:layout_width="match_parent"
-            android:layout_height="64sp"
+            android:layout_height="70sp"
             android:paddingHorizontal="30dp"
             android:paddingTop="10dp"
             android:text="Recipe Name"
-            android:textColor="@color/black"
-            android:textSize="24sp"
+            android:theme="@style/RecipeTitle"
             android:gravity="center_vertical"
             />
 
@@ -39,8 +39,7 @@
             android:paddingHorizontal="30dp"
             android:paddingTop="3dp"
             android:text="Calories"
-            android:textSize="16sp"
-            android:textColor="@color/black" />
+            android:theme="@style/RecipeDesc" />
 
         <TextView
             android:id="@+id/recipeTime"
@@ -49,8 +48,7 @@
             android:paddingHorizontal="30dp"
             android:paddingTop="3dp"
             android:text="Time Taken"
-            android:textSize="16sp"
-            android:textColor="@color/black" />
+            android:theme="@style/RecipeDesc" />
 
         <TextView
             android:id="@+id/recipeCost"
@@ -59,8 +57,7 @@
             android:paddingHorizontal="30dp"
             android:paddingTop="3dp"
             android:text="Cost"
-            android:textSize="16sp"
-            android:textColor="@color/black" />
+            android:theme="@style/RecipeDesc" />
 
     </LinearLayout>
 
