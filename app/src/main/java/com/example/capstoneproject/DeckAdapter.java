@@ -1,5 +1,7 @@
 package com.example.capstoneproject;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,15 @@ public class DeckAdapter extends BaseAdapter {
         ((TextView) v.findViewById(R.id.recipeCalories)).setText("Calories: " + macros.getCalories().substring(0, macros.getCalories().length()-1));
         ((TextView) v.findViewById(R.id.recipeTime)).setText("Time (min): " + recipeData.get(position).getReadyInMinutes());
         ((TextView) v.findViewById(R.id.recipeCost)).setText(String.format("Price per serving: $%.2f",recipeData.get(position).getPricePerServing()/100.0));
+        v.findViewById(R.id.recipeInfoButton).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RecipeInfoActivity.class);
+                intent.putExtra("recipeData", recipeData.get(0));
+                intent.putExtra("macroData", macros);
+                context.startActivity(intent);
+
+            }
+        });
         Picasso.get().load(recipeData.get(position).getImage()).into((ImageView) v.findViewById(R.id.recipeImage));
         return v;
     }

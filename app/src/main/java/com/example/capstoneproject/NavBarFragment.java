@@ -54,6 +54,8 @@ public class NavBarFragment extends Fragment {
             bottomNavigationView.setSelectedItemId(R.id.recipe);
         if(getActivity().getClass().getSimpleName().equals("GroceryActivity"))
             bottomNavigationView.setSelectedItemId(R.id.grocery);
+        if(getActivity().getClass().getSimpleName().equals("SearchActivity"))
+            bottomNavigationView.setSelectedItemId(R.id.search);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -77,6 +79,14 @@ public class NavBarFragment extends Fragment {
                 if (item.getItemId() == R.id.grocery) {
                     if(bottomNavigationView.getSelectedItemId() != R.id.grocery) {
                         startActivity(new Intent(getActivity(), GroceryActivity.class));
+                        getActivity().overridePendingTransition(0, 0);
+                    }
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.search) {
+                    if(bottomNavigationView.getSelectedItemId() != R.id.search) {
+                        startActivity(new Intent(getActivity(), SearchActivity.class));
                         getActivity().overridePendingTransition(0, 0);
                     }
                     return true;

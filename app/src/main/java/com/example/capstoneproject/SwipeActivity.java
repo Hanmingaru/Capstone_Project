@@ -92,12 +92,14 @@ public class SwipeActivity extends AppCompatActivity {
     private final RandomAPIResponseListener randomListener = new RandomAPIResponseListener() {
         @Override
         public void didFetch(List<RandomRecipe> responses, String message) {
+            Log.d("apiResponse", "we did it!");
             randomRecipes = responses;
             manager.GetNutritionByID(nutritionListener, responses.get(0).getId());
         }
 
         @Override
         public void didError(String message) {
+            Log.d("apiResponse", message);
             Toast.makeText(SwipeActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
