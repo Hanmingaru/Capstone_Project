@@ -27,7 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".SwipeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
