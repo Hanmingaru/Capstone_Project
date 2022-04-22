@@ -51,6 +51,7 @@ public class SwipeActivity extends AppCompatActivity {
 
                 // Create recipe object to store in database
                 RandomRecipe recipeResponse = randomRecipes.get(0);
+
                 Recipe recipe = new Recipe(recipeResponse.getTitle(), recipeResponse.getImage());
 
                 // Get Recipe Database Access Object

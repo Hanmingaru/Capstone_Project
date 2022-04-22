@@ -11,6 +11,7 @@ public class RecipeNutritionResponse {
     public String calories;
     public String carbs;
     public String fat;
+    public String protein;
 
     public String getCalories() {
         return calories;
@@ -27,8 +28,6 @@ public class RecipeNutritionResponse {
     public String getProtein() {
         return protein;
     }
-
-    public String protein;
 
     public ArrayList<String> getMacros(){
         ArrayList<String> macroList = new ArrayList<String>();

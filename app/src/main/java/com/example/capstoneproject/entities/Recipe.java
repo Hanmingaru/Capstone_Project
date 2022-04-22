@@ -15,6 +15,8 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 // Use `@Fts3` only if your app has strict disk space requirements or if you
 // require compatibility with an older SQLite version.
 @Fts4
@@ -58,6 +60,65 @@ public class Recipe {
     @NotNull
     private String imageUrl;
 
+    // Number of calories in the recipe
+    @ColumnInfo(name = "calories")
+    @NotNull
+    private String calories;
+
+    // Amount of protein in the recipe
+    @ColumnInfo(name = "protein")
+    @NotNull
+    private String protein;
+
+    // Amount of fat in the recipe
+    @ColumnInfo(name = "fat")
+    @NotNull
+    private String fat;
+
+    // Number of carbs in the recipe
+    @ColumnInfo(name = "carbs")
+    @NotNull
+    private String carbs;
+
+    // Link to the recipes website
+    @ColumnInfo(name = "websiteLink")
+    @NotNull
+    private String websiteLink;
+
+    // Number of minutes it takes to prepare the recipe
+    @ColumnInfo(name = "preparationTime")
+    @NotNull
+    private Integer preparationTime;
+
+    // Price of a single serving of the recipe
+    @ColumnInfo(name = "pricePerServing")
+    @NotNull
+    private Double pricePerServing;
+
+    // Description of the recipe
+    @ColumnInfo(name = "description")
+    @NotNull
+    private String description;
+
+    /* *************************************************************************************
+     * Use Serialize/Deserialize functions from globals.Methods to get the List of Strings *
+     ***************************************************************************************/
+
+    // List of strings that contain the diets this recipe abides by
+    @ColumnInfo(name = "diets")
+    @NotNull
+    private String diets;
+
+    // List of all ingredients as Strings
+    @ColumnInfo(name = "ingredients")
+    @NotNull
+    private String ingredients;
+
+    // List of all instructions as Strings
+    @ColumnInfo(name = "instructions")
+    @NotNull
+    private String instructions;
+
     /* more attributes ... */
 
     /*
@@ -96,6 +157,8 @@ public class Recipe {
         this.imageUrl = imageUrl;
         this.favorite = false;
     }
+
+
 
     /*
     ======================================================
