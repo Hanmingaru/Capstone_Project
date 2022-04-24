@@ -50,6 +50,8 @@ public class SwipeActivity extends AppCompatActivity {
 
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
+                // FIXME: macros does not work
+
                 // Get randomRecipe object from api
                 RandomRecipe recipeResponse = randomRecipes.get(0);
 
