@@ -11,7 +11,6 @@ import androidx.annotation.Size;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +27,7 @@ import com.example.capstoneproject.globals.Methods;
 // Use `@Fts3` only if your app has strict disk space requirements or if you
 // require compatibility with an older SQLite version.
 @Fts4
-@Entity(tableName = "recipe", indices = {@Index("name"), @Index(value = {"name"})})
+@Entity(tableName = "recipe")
 public class Recipe {
 
      /*
@@ -150,7 +149,7 @@ public class Recipe {
      * @param recipeNutrition A RecipeNutritionResponse created from an API call
      */
     public Recipe(RandomRecipe randomRecipe, RecipeNutritionResponse recipeNutrition) {
-        this(randomRecipe.getSourceName(),
+        this(randomRecipe.getTitle(),
                 randomRecipe.getImage(),
                 recipeNutrition.getCalories(),
                 recipeNutrition.getProtein(),
@@ -162,10 +161,6 @@ public class Recipe {
                 randomRecipe.getSummary(),
                 randomRecipe.getExtendedIngredients(),
                 randomRecipe.getInstructions(),
-                randomRecipe.isVegetarian(),
-                randomRecipe.isVegan(),
-                randomRecipe.isGlutenFree(),
-                randomRecipe.isDairyFree(),
                 randomRecipe.getDiets());
     }
 
@@ -186,10 +181,6 @@ public class Recipe {
      * @param extendedIngredients List of extendedIngredients objects that contain
      *                            all of the recipes ingredients
      * @param instructions        String of instructions delimited on new lines
-     * @param vegetarian          Boolean if recipe is vegetarian
-     * @param vegan               Boolean if recipe is vegan
-     * @param glutenFree          Boolean if recipe is gluten free
-     * @param dairyFree           Boolean if recipe is dairy free
      * @param diets               List of Strings of diets the recipe follows
      */
     public Recipe(@NotNull String name, @NotNull String imageUrl, @NotNull String calories,
@@ -197,7 +188,6 @@ public class Recipe {
                   @NotNull String websiteLink, @NotNull Integer preparationTime,
                   @NotNull Double pricePerServing, @NotNull String description,
                   List<ExtendedIngredient> extendedIngredients, String instructions,
-                  boolean vegetarian, boolean vegan, boolean glutenFree, boolean dairyFree,
                   List<String> diets) {
         // Fields with default values
         this.favorite = false;
@@ -212,37 +202,16 @@ public class Recipe {
         this.websiteLink = websiteLink;
         this.preparationTime = preparationTime;
         this.pricePerServing = pricePerServing;
-        this.description = description;
 
         // Fields that require more processing
 
-        /*
-        instructions: a string of instructions for the recipe, delimenated by new line characters,
-            parse into List<String> then serialize.
-
-         diet: check boolean values and append them to List<String> diets. Then serialize the list.
-
-         Ingredients:
-         */
+        /* ------- Description ------- */
+        this.description = description.replaceAll("\\<.*?>","");
 
         /* ------- Diets ------- */
 
         // Get diet info
         List<String> allDiets = diets;
-
-        // Append additional diet info to diets
-        if (vegetarian)
-            allDiets.add("vegetarian");
-        if (vegan)
-            allDiets.add("vegan");
-        if (glutenFree)
-            allDiets.add("gluten free");
-        if (dairyFree)
-            allDiets.add("dairy free");
-
-        // Communicate if there are no diet the recipe follows
-        if (allDiets.size() == 0)
-            allDiets.add("none");
 
         // Save list as serialized string. Can be deserialized on retrieval
         this.diets = Methods.serializeList(allDiets);
@@ -250,14 +219,17 @@ public class Recipe {
         /* ------- Instructions ------- */
 
         // Get instructions as an array of instructions
-        String[] instructionsArray = instructions.split("\\R+");
-
-        if (instructionsArray.length == 0) {
-            instructionsArray[0] = "See recipe website for instructions";
-        }
+        String parsedInstructions = instructions.replaceAll("\\<.*?>","\n");
+        String[] instructionsArray = parsedInstructions.split("\\R+");
 
         // Parse instructionsArray into a List
-        List<String> instructionList = Arrays.asList(instructionsArray);
+        List<String> instructionList = new ArrayList<>();
+        for (int i = 0; i < instructionsArray.length; i++) {
+            if (instructionsArray[i].length() > 3) {
+                // Only add instructions with actual lengths. Avoid " ", ". ", "3)."
+                instructionList.add(instructionsArray[i]);
+            }
+        }
 
         // Serialize the List into String for database
         this.instructions = Methods.serializeList(instructionList);
@@ -268,12 +240,12 @@ public class Recipe {
         // original String to the ingredientsList
         List<String> ingredientsList = new ArrayList<>();
         for (ExtendedIngredient exIng: extendedIngredients) {
-            ingredientsList.add(exIng.getOriginal());
+            // Need to remove random html tags in string
+            ingredientsList.add(exIng.getOriginal().replaceAll("\\<.*?>",""));
         }
 
         // Serialize the List into String for database
         this.ingredients = Methods.serializeList(ingredientsList);
-
 
     }
 
@@ -319,11 +291,134 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 
+    @NotNull
+    public String getCalories() {
+        return calories;
+    }
+
+    public void setCalories(@NotNull String calories) {
+        this.calories = calories;
+    }
+
+    @NotNull
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(@NotNull String protein) {
+        this.protein = protein;
+    }
+
+    @NotNull
+    public String getFat() {
+        return fat;
+    }
+
+    public void setFat(@NotNull String fat) {
+        this.fat = fat;
+    }
+
+    @NotNull
+    public String getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(@NotNull String carbs) {
+        this.carbs = carbs;
+    }
+
+    @NotNull
+    public String getWebsiteLink() {
+        return websiteLink;
+    }
+
+    public void setWebsiteLink(@NotNull String websiteLink) {
+        this.websiteLink = websiteLink;
+    }
+
+    @NotNull
+    public Integer getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(@NotNull Integer preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
+    @NotNull
+    public Double getPricePerServing() {
+        return pricePerServing;
+    }
+
+    public void setPricePerServing(@NotNull Double pricePerServing) {
+        this.pricePerServing = pricePerServing;
+    }
+
+    @NotNull
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(@NotNull String description) {
+        this.description = description;
+    }
+
+    @NotNull
+    public String getDiets() {
+        return diets;
+    }
+
+    public void setDiets(@NotNull String diets) {
+        this.diets = diets;
+    }
+
+    @NotNull
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(@NotNull String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    @NotNull
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(@NotNull String instructions) {
+        this.instructions = instructions;
+    }
+
     /*
     ================================
     Instance Methods Used Internally
     ================================
      */
+
+    private void printIngredients() {
+        System.out.println("\n---------- Ingredients ----------");
+        List<String> ingredients = Methods.deserializeList(this.ingredients);
+        for (String ing: ingredients) {
+            System.out.println(ing);
+        }
+        System.out.println();
+    }
+
+    private void printInstructions() {
+        System.out.println("\n---------- Instructions ----------");
+        List<String> instructions = Methods.deserializeList(this.instructions);
+        for (String inst: instructions) {
+            System.out.println(inst);
+        }
+        System.out.println();
+    }
+
+    private void printDescription() {
+        System.out.println("\n---------- Description ----------");
+        System.out.println(this.description);
+        System.out.println();
+    }
 
     /*
      Checks if the Recipe object identified by 'object' is the same as the Recipe object

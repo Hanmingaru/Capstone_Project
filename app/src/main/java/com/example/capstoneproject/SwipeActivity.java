@@ -47,10 +47,14 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void cardSwipedRight(int position) {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
+
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
                 // Get randomRecipe object from api
                 RandomRecipe recipeResponse = randomRecipes.get(0);
+
+                // Get Nutrition information from api
+                manager.GetNutritionByID(nutritionListener, recipeResponse.getId());
 
                 // Create recipe object to store in database
                 Recipe recipe = new Recipe(recipeResponse, macros);
