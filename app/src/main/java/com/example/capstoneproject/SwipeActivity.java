@@ -49,10 +49,11 @@ public class SwipeActivity extends AppCompatActivity {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
                 Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
-                // Create recipe object to store in database
+                // Get randomRecipe object from api
                 RandomRecipe recipeResponse = randomRecipes.get(0);
 
-                Recipe recipe = new Recipe(recipeResponse.getTitle(), recipeResponse.getImage());
+                // Create recipe object to store in database
+                Recipe recipe = new Recipe(recipeResponse, macros);
 
                 // Get Recipe Database Access Object
                 final RecipeDao recipeDao = ((RecipeApplication) getApplicationContext())

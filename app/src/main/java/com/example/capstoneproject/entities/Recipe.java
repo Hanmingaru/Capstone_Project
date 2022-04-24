@@ -11,16 +11,24 @@ import androidx.annotation.Size;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.example.capstoneproject.Models.ExtendedIngredient;
+import com.example.capstoneproject.Models.RandomRecipe;
+import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.globals.Methods;
 
 // Use `@Fts3` only if your app has strict disk space requirements or if you
 // require compatibility with an older SQLite version.
 @Fts4
-@Entity(tableName = "recipe")
+@Entity(tableName = "recipe", indices = {@Index("name"), @Index(value = {"name"})})
 public class Recipe {
 
      /*
@@ -134,31 +142,140 @@ public class Recipe {
         this.id = id;
     }
 
-
     /**
-     * Use this when creating a recipe will all attributes initialized
+     * Create a Database Recipe object from RandomRecipe and
+     * RecipeNutritionResponse Objects.
      *
-     * @param name
-     * @param favorite
+     * @param randomRecipe A RandomRecipe object created from an API call
+     * @param recipeNutrition A RecipeNutritionResponse created from an API call
      */
-    public Recipe(@NotNull String name, @NotNull Boolean favorite) {
-        this.name = name;
-        this.favorite = favorite;
+    public Recipe(RandomRecipe randomRecipe, RecipeNutritionResponse recipeNutrition) {
+        this(randomRecipe.getSourceName(),
+                randomRecipe.getImage(),
+                recipeNutrition.getCalories(),
+                recipeNutrition.getProtein(),
+                recipeNutrition.getFat(),
+                recipeNutrition.getCarbs(),
+                randomRecipe.getSourceUrl(),
+                randomRecipe.getReadyInMinutes(),
+                randomRecipe.getPricePerServing(),
+                randomRecipe.getSummary(),
+                randomRecipe.getExtendedIngredients(),
+                randomRecipe.getInstructions(),
+                randomRecipe.isVegetarian(),
+                randomRecipe.isVegan(),
+                randomRecipe.isGlutenFree(),
+                randomRecipe.isDairyFree(),
+                randomRecipe.getDiets());
     }
 
     /**
-     * Use this constructor when creating Recipe with default values.
-     * Best to use when creating a recipe from swiping to add to database.
+     * Create a Recipe with all fields initialized. Used to create a recipe
+     * when you know all of the fields.
      *
-     * @param name
+     * @param name                Name of the recipe
+     * @param imageUrl            Url of the recipes Image
+     * @param calories            Number of calories in the recipe
+     * @param protein             Amount of protein in the recipe
+     * @param fat                 Amount of fat in the recipe
+     * @param carbs               Amount of carbs in the recipe
+     * @param websiteLink         Link to the Recipe's website
+     * @param preparationTime     Number of minutes it takes to prepare the recipe.
+     * @param pricePerServing     Price of one serving of the recipe
+     * @param description         Description of the recipe
+     * @param extendedIngredients List of extendedIngredients objects that contain
+     *                            all of the recipes ingredients
+     * @param instructions        String of instructions delimited on new lines
+     * @param vegetarian          Boolean if recipe is vegetarian
+     * @param vegan               Boolean if recipe is vegan
+     * @param glutenFree          Boolean if recipe is gluten free
+     * @param dairyFree           Boolean if recipe is dairy free
+     * @param diets               List of Strings of diets the recipe follows
      */
-    public Recipe(@NotNull String name, @NotNull String imageUrl) {
+    public Recipe(@NotNull String name, @NotNull String imageUrl, @NotNull String calories,
+                  @NotNull String protein, @NotNull String fat, @NotNull String carbs,
+                  @NotNull String websiteLink, @NotNull Integer preparationTime,
+                  @NotNull Double pricePerServing, @NotNull String description,
+                  List<ExtendedIngredient> extendedIngredients, String instructions,
+                  boolean vegetarian, boolean vegan, boolean glutenFree, boolean dairyFree,
+                  List<String> diets) {
+        // Fields with default values
+        this.favorite = false;
+
+        // Fields that are initialized with passed parameter
         this.name = name;
         this.imageUrl = imageUrl;
-        this.favorite = false;
+        this.calories = calories;
+        this.protein = protein;
+        this.fat = fat;
+        this.carbs = carbs;
+        this.websiteLink = websiteLink;
+        this.preparationTime = preparationTime;
+        this.pricePerServing = pricePerServing;
+        this.description = description;
+
+        // Fields that require more processing
+
+        /*
+        instructions: a string of instructions for the recipe, delimenated by new line characters,
+            parse into List<String> then serialize.
+
+         diet: check boolean values and append them to List<String> diets. Then serialize the list.
+
+         Ingredients:
+         */
+
+        /* ------- Diets ------- */
+
+        // Get diet info
+        List<String> allDiets = diets;
+
+        // Append additional diet info to diets
+        if (vegetarian)
+            allDiets.add("vegetarian");
+        if (vegan)
+            allDiets.add("vegan");
+        if (glutenFree)
+            allDiets.add("gluten free");
+        if (dairyFree)
+            allDiets.add("dairy free");
+
+        // Communicate if there are no diet the recipe follows
+        if (allDiets.size() == 0)
+            allDiets.add("none");
+
+        // Save list as serialized string. Can be deserialized on retrieval
+        this.diets = Methods.serializeList(allDiets);
+
+        /* ------- Instructions ------- */
+
+        // Get instructions as an array of instructions
+        String[] instructionsArray = instructions.split("\\R+");
+
+        if (instructionsArray.length == 0) {
+            instructionsArray[0] = "See recipe website for instructions";
+        }
+
+        // Parse instructionsArray into a List
+        List<String> instructionList = Arrays.asList(instructionsArray);
+
+        // Serialize the List into String for database
+        this.instructions = Methods.serializeList(instructionList);
+
+        /* ------- Ingredients ------- */
+
+        // Iterate through every ExtendedIngredient and add its
+        // original String to the ingredientsList
+        List<String> ingredientsList = new ArrayList<>();
+        for (ExtendedIngredient exIng: extendedIngredients) {
+            ingredientsList.add(exIng.getOriginal());
+        }
+
+        // Serialize the List into String for database
+        this.ingredients = Methods.serializeList(ingredientsList);
+
+
     }
-
-
 
     /*
     ======================================================
