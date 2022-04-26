@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public void didError(String message) {
-            Log.d("LOGDEEZNUTS", "MADGE");
+            Log.d("didError", "This is an error");
         }
     };
 }

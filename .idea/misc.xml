@@ -37,9 +37,10 @@
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_grocery.xml" value="0.1" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_recipe_info.xml" value="0.1" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_saved.xml" value="0.25" />
-        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_search.xml" value="0.264" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_search.xml" value="0.2" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_swipe.xml" value="0.18659420289855072" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/recipe_item.xml" value="0.1" />
-        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/recipe_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/recipe_list_item.xml" value="0.2" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/menu/bottom_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/menu/saved_menu.xml" value="0.175" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/menu/swipe_menu.xml" value="0.175" />

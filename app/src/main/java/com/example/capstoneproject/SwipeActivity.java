@@ -1,7 +1,9 @@
 package com.example.capstoneproject;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,7 +80,10 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void cardActionUp() {
-                Log.i("TAG", "CARDS MOVED UP");
+                Intent intent = new Intent(SwipeActivity.this, RecipeInfoActivity.class);
+                intent.putExtra("recipeData", randomRecipes.get(0));
+                intent.putExtra("macroData", macros);
+                SwipeActivity.this.startActivity(intent);
             }
         });
         if (savedInstanceState == null) {

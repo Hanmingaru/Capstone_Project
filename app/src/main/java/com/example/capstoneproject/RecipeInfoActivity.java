@@ -26,6 +26,5 @@ public class RecipeInfoActivity extends AppCompatActivity {
         RecipeNutritionResponse macroData = getIntent().getParcelableExtra("macroData");
         TextView tv = findViewById(R.id.recipeInfoTitle);
         tv.setText(recipeData.getTitle());
-        Log.d("calories", macroData.getCalories());
     }
 }
