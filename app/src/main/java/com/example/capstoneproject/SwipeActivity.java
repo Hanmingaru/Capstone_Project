@@ -13,6 +13,7 @@ import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.daos.GroceryDao;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.database.RecipeDB;
 import com.example.capstoneproject.entities.Recipe;
@@ -56,9 +57,6 @@ public class SwipeActivity extends AppCompatActivity {
 
                 // Get randomRecipe object from api
                 RandomRecipe recipeResponse = randomRecipes.get(0);
-
-                // Get Nutrition information from api
-                manager.GetNutritionByID(nutritionListener, recipeResponse.getId());
 
                 // Create recipe object to store in database
                 Recipe recipe = new Recipe(recipeResponse, macros);

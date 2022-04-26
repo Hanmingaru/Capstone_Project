@@ -29,6 +29,13 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipe WHERE name LIKE :name AND favorite == 1")
     List<Recipe> loadFavoritesByName(String name);
 
+    @Query("SELECT * FROM recipe WHERE favorite == 1")
+    List<Recipe> getFavorite();
+
+    /* --- Return all not-favorite queries ---*/
+    @Query("SELECT * FROM recipe WHERE favorite == 0")
+    List<Recipe> getNotFavorite();
+
     /*
     ===================================
     |       All Recipes Queries       |
@@ -46,6 +53,9 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipe WHERE name LIKE :name LIMIT 1")
     Recipe findByName(String name);
 
+    @Query("SELECT * FROM recipe WHERE recipeID == :recipeID")
+    Recipe findByRecipeID(Integer recipeID);
+
     /*
     ======================================
     |       Recipe CRUD Operations       |
@@ -60,8 +70,17 @@ public interface RecipeDao {
     void insertAll(Recipe... recipes);
 
     @Update
+    void updateRecipe(Recipe recipe);
+
+    @Update
     void updateRecipes(Recipe... recipes);
 
     @Delete
     void delete(Recipe recipe);
+
+    @Query("DELETE FROM recipe WHERE name LIKE :name")
+    void deleteName(String name);
+
+    @Query("DELETE FROM recipe WHERE recipeID == :recipeID")
+    void deleteRecipeID(Integer recipeID);
 }

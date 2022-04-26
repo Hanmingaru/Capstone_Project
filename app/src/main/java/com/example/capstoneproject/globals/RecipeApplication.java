@@ -8,7 +8,6 @@
 package com.example.capstoneproject.globals;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.example.capstoneproject.database.RecipeDB;
 
@@ -16,23 +15,31 @@ import com.example.capstoneproject.database.RecipeDB;
  * Base class for maintaining global application state.
  *
  * See bottom for how to use database
+ *
  */
 public class RecipeApplication extends Application {
 
     RecipeDB recipeDB;
 
+    /*
+    =====================================
+    |       Getter/Setter Methods       |
+    =====================================
+     */
+    public RecipeDB getRecipeDB() {
+        return recipeDB;
+    }
+
+    /*
+    ============================================
+    |        Method runs on app startup        |
+    ============================================
+     */
     @Override
     public void onCreate() {
         super.onCreate();
 
         recipeDB = RecipeDB.getInstance(this);
-    }
-
-    /*
-     * Get reference to the RecipeDB
-     */
-    public RecipeDB getRecipeDB() {
-        return recipeDB;
     }
 
     /*

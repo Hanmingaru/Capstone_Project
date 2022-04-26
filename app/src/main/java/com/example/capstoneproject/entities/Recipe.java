@@ -7,10 +7,13 @@
 
 package com.example.capstoneproject.entities;
 
+import android.os.AsyncTask;
+
 import androidx.annotation.Size;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +25,9 @@ import java.util.List;
 import com.example.capstoneproject.Models.ExtendedIngredient;
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.daos.GroceryDao;
 import com.example.capstoneproject.globals.Methods;
+import com.example.capstoneproject.globals.RecipeApplication;
 
 // Use `@Fts3` only if your app has strict disk space requirements or if you
 // require compatibility with an older SQLite version.
@@ -107,6 +112,11 @@ public class Recipe {
     @NotNull
     private String description;
 
+    // Spoonacular ID of the recipe
+    @ColumnInfo(name = "recipeID")
+    @NotNull
+    private Integer recipeID;
+
     /* *************************************************************************************
      * Use Serialize/Deserialize functions from globals.Methods to get the List of Strings *
      ***************************************************************************************/
@@ -120,6 +130,12 @@ public class Recipe {
     @ColumnInfo(name = "ingredients")
     @NotNull
     private String ingredients;
+
+    // List of Strings corresponding to ingredients that hold
+    // the aisle the ingredient is stored in
+    @ColumnInfo(name = "aisles")
+    @NotNull
+    private String aisle;
 
     // List of all instructions as Strings
     @ColumnInfo(name = "instructions")
@@ -137,6 +153,7 @@ public class Recipe {
     public Recipe() {
     }
 
+    @Ignore
     public Recipe(Integer id) {
         this.id = id;
     }
@@ -148,6 +165,7 @@ public class Recipe {
      * @param randomRecipe A RandomRecipe object created from an API call
      * @param recipeNutrition A RecipeNutritionResponse created from an API call
      */
+    @Ignore
     public Recipe(RandomRecipe randomRecipe, RecipeNutritionResponse recipeNutrition) {
         this(randomRecipe.getTitle(),
                 randomRecipe.getImage(),
@@ -161,7 +179,8 @@ public class Recipe {
                 randomRecipe.getSummary(),
                 randomRecipe.getExtendedIngredients(),
                 randomRecipe.getInstructions(),
-                randomRecipe.getDiets());
+                randomRecipe.getDiets(),
+                randomRecipe.getId());
     }
 
     /**
@@ -182,13 +201,15 @@ public class Recipe {
      *                            all of the recipes ingredients
      * @param instructions        String of instructions delimited on new lines
      * @param diets               List of Strings of diets the recipe follows
+     * @param recipeID            Spoonacular Id of the Recipe
      */
+    @Ignore
     public Recipe(@NotNull String name, @NotNull String imageUrl, @NotNull String calories,
                   @NotNull String protein, @NotNull String fat, @NotNull String carbs,
                   @NotNull String websiteLink, @NotNull Integer preparationTime,
                   @NotNull Double pricePerServing, @NotNull String description,
                   List<ExtendedIngredient> extendedIngredients, String instructions,
-                  List<String> diets) {
+                  List<String> diets, Integer recipeID) {
         // Fields with default values
         this.favorite = false;
 
@@ -202,6 +223,7 @@ public class Recipe {
         this.websiteLink = websiteLink;
         this.preparationTime = preparationTime;
         this.pricePerServing = pricePerServing;
+        this.recipeID = recipeID;
 
         // Fields that require more processing
 
@@ -234,17 +256,20 @@ public class Recipe {
         // Serialize the List into String for database
         this.instructions = Methods.serializeList(instructionList);
 
-        /* ------- Ingredients ------- */
+        /* ------- Ingredients/Aisle ------- */
 
         // Iterate through every ExtendedIngredient and add its
         // original String to the ingredientsList
         List<String> ingredientsList = new ArrayList<>();
+        List<String> aisleList = new ArrayList<>();
         for (ExtendedIngredient exIng: extendedIngredients) {
             // Need to remove random html tags in string
             ingredientsList.add(exIng.getOriginal().replaceAll("\\<.*?>",""));
+            aisleList.add(exIng.getAisle());
         }
 
-        // Serialize the List into String for database
+        // Serialize these Lists into Strings for database
+        this.aisle = Methods.serializeList(aisleList);
         this.ingredients = Methods.serializeList(ingredientsList);
 
     }
@@ -390,11 +415,60 @@ public class Recipe {
         this.instructions = instructions;
     }
 
+    @NotNull
+    public String getAisle() {
+        return aisle;
+    }
+
+    public void setAisle(@NotNull String aisle) {
+        this.aisle = aisle;
+    }
+
+    @NotNull
+    public Integer getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(@NotNull Integer recipeID) {
+        this.recipeID = recipeID;
+    }
+
     /*
     ================================
     Instance Methods Used Internally
     ================================
      */
+
+    /**
+     * Use this function when a User wants to add a recipe to their groceries
+     * list.
+     *
+     * @param groceryDao The Database Access Object for the Groceries Table
+     */
+    public void addIngredientsToGroceries(GroceryDao groceryDao) {
+
+        // Get String List of ingredients and aisles
+        List<String> ingredients = Methods.deserializeList(this.ingredients);
+        List<String> aisle = Methods.deserializeList(this.aisle);
+        int ingredientsSize = ingredients.size();
+
+        // Create an array to store groceries
+        Grocery[] groceryList = new Grocery[ingredientsSize];
+
+        // Iterate though every element in ingredients
+        for (int i = 0; i < ingredientsSize; i++) {
+            // Create a new Grocery object for each ingredient
+            groceryList[i] = new Grocery(this.name, ingredients.get(i), false, aisle.get(i));
+        }
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                // All all members of groceryList to the Grocery Table.
+                groceryDao.insertAll(groceryList);
+            }
+        });
+    }
 
     private void printIngredients() {
         System.out.println("\n---------- Ingredients ----------");
