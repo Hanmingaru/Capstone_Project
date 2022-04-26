@@ -74,4 +74,7 @@ public interface RecipeDao {
 
     @Delete
     void delete(Recipe recipe);
+
+    @Query("DELETE FROM recipe WHERE name LIKE :name")
+    void deleteName(String name);
 }

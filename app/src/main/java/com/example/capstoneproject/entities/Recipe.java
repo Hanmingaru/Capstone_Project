@@ -112,6 +112,11 @@ public class Recipe {
     @NotNull
     private String description;
 
+    // Spoonacular ID of the recipe
+    @ColumnInfo(name = "recipeID")
+    @NotNull
+    private Integer recipeID;
+
     /* *************************************************************************************
      * Use Serialize/Deserialize functions from globals.Methods to get the List of Strings *
      ***************************************************************************************/
@@ -174,7 +179,8 @@ public class Recipe {
                 randomRecipe.getSummary(),
                 randomRecipe.getExtendedIngredients(),
                 randomRecipe.getInstructions(),
-                randomRecipe.getDiets());
+                randomRecipe.getDiets(),
+                randomRecipe.getId());
     }
 
     /**
@@ -195,6 +201,7 @@ public class Recipe {
      *                            all of the recipes ingredients
      * @param instructions        String of instructions delimited on new lines
      * @param diets               List of Strings of diets the recipe follows
+     * @param recipeID            Spoonacular Id of the Recipe
      */
     @Ignore
     public Recipe(@NotNull String name, @NotNull String imageUrl, @NotNull String calories,
@@ -202,7 +209,7 @@ public class Recipe {
                   @NotNull String websiteLink, @NotNull Integer preparationTime,
                   @NotNull Double pricePerServing, @NotNull String description,
                   List<ExtendedIngredient> extendedIngredients, String instructions,
-                  List<String> diets) {
+                  List<String> diets, Integer recipeID) {
         // Fields with default values
         this.favorite = false;
 
@@ -216,6 +223,7 @@ public class Recipe {
         this.websiteLink = websiteLink;
         this.preparationTime = preparationTime;
         this.pricePerServing = pricePerServing;
+        this.recipeID = recipeID;
 
         // Fields that require more processing
 
@@ -414,6 +422,15 @@ public class Recipe {
 
     public void setAisle(@NotNull String aisle) {
         this.aisle = aisle;
+    }
+
+    @NotNull
+    public Integer getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(@NotNull Integer recipeID) {
+        this.recipeID = recipeID;
     }
 
     /*
