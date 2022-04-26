@@ -22,9 +22,9 @@ public class RecipeInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_info);
 
-        RandomRecipe recipeData = getIntent().getParcelableExtra("recipeData");
-        RecipeNutritionResponse macroData = getIntent().getParcelableExtra("macroData");
-        TextView tv = findViewById(R.id.recipeInfoTitle);
-        tv.setText(recipeData.getTitle());
+//        RandomRecipe recipeData = getIntent().getParcelableExtra("recipeData");
+//        RecipeNutritionResponse macroData = getIntent().getParcelableExtra("macroData");
+//        TextView tv = findViewById(R.id.recipeInfoTitle);
+//        tv.setText(recipeData.getTitle());
     }
 }
