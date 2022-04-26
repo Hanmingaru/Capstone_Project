@@ -67,6 +67,9 @@ public interface RecipeDao {
     void insertAll(Recipe... recipes);
 
     @Update
+    void updateRecipe(Recipe recipe);
+
+    @Update
     void updateRecipes(Recipe... recipes);
 
     @Delete

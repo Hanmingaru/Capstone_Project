@@ -63,6 +63,9 @@ public interface GroceryDao {
     void insertAll(Grocery... groceries);
 
     @Update
+    void updateGrocery(Grocery grocery);
+
+    @Update
     void updateGroceries(Grocery... groceries);
 
     @Delete

@@ -8,10 +8,16 @@ package com.example.capstoneproject.entities;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * See Recipe.java addIngredientsToGroceries(GroceryDao groceryDao)
+ * for how to add a recipe's data to Grocery list
+ */
 @Fts4
 @Entity(tableName = "grocery")
 public class Grocery {
@@ -57,6 +63,42 @@ public class Grocery {
     @NotNull
     private String aisle;
 
+    /*
+    ===============================================================
+    Class constructors for instantiating a Grocery entity object to
+    represent a row in the Grocery table in the RecipeDB database.
+    ===============================================================
+    */
+
+    public Grocery() {
+    }
+
+    @Ignore
+    public Grocery(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     *
+     * @param recipeId ID of the recipe this gorcery item belongs to
+     * @param name     Name of the ingredient
+     * @param found    Boolean to update status of ingredient (used to keep
+     *                 track if user marked item as found or not marked yet)
+     * @param aisle    Name of the isle this ingredient is found in
+     */
+    @Ignore
+    public Grocery(@NotNull Integer recipeId, @NotNull String name, @NotNull Boolean found,
+                   @NotNull String aisle) {
+        this.recipeId = recipeId;
+        this.name = name;
+        this.found = found;
+        if (aisle == null) {
+            this.aisle = "Other";
+        }
+        else {
+            this.aisle = aisle;
+        }
+    }
     /*
     ======================================================
     Getter and Setter methods for the attributes (columns)
