@@ -68,6 +68,18 @@ public interface GroceryDao {
     @Update
     void updateGroceries(Grocery... groceries);
 
+    /* *************************************************************
+     *  This function can be used to delete all grocery objects    *
+     *  that belong to the same Recipe. Use the findAllByRecipeID  *
+     *  DAO and pass what it returns to this function.             *
+     ***************************************************************/
+    @Delete
+    void delete(List<Grocery> groceries);
+
     @Delete
     void delete(Grocery grocery);
+
+    // Delete all items from the grocery database
+    @Query("DELETE FROM grocery")
+    void deleteAll();
 }
