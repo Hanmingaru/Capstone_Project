@@ -53,6 +53,9 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipe WHERE name LIKE :name LIMIT 1")
     Recipe findByName(String name);
 
+    @Query("SELECT * FROM recipe WHERE recipeID == :recipeID")
+    Recipe findByRecipeID(Integer recipeID);
+
     /*
     ======================================
     |       Recipe CRUD Operations       |
@@ -77,4 +80,7 @@ public interface RecipeDao {
 
     @Query("DELETE FROM recipe WHERE name LIKE :name")
     void deleteName(String name);
+
+    @Query("DELETE FROM recipe WHERE recipeID == :recipeID")
+    void deleteRecipeID(Integer recipeID);
 }
