@@ -44,9 +44,9 @@ public class Grocery {
     private Integer id;
 
     // id of the recipe this ingredient belongs to
-    @ColumnInfo(name = "recipeId")
+    @ColumnInfo(name = "recipeName")
     @NotNull
-    private Integer recipeId;
+    private String recipeName;
 
     // name of this ingredient
     @ColumnInfo(name = "name")
@@ -73,23 +73,18 @@ public class Grocery {
     public Grocery() {
     }
 
-    @Ignore
-    public Grocery(Integer id) {
-        this.id = id;
-    }
-
     /**
      *
-     * @param recipeId ID of the recipe this gorcery item belongs to
-     * @param name     Name of the ingredient
-     * @param found    Boolean to update status of ingredient (used to keep
-     *                 track if user marked item as found or not marked yet)
-     * @param aisle    Name of the isle this ingredient is found in
+     * @param recipeName Name of the recipe this grocery item belongs to
+     * @param name       Name of the ingredient
+     * @param found      Boolean to update status of ingredient (used to keep
+     *                     track if user marked item as found or not marked yet)
+     * @param aisle      Name of the isle this ingredient is found in
      */
     @Ignore
-    public Grocery(@NotNull Integer recipeId, @NotNull String name, @NotNull Boolean found,
+    public Grocery(@NotNull String recipeName, @NotNull String name, @NotNull Boolean found,
                    @NotNull String aisle) {
-        this.recipeId = recipeId;
+        this.recipeName = recipeName;
         this.name = name;
         this.found = found;
         if (aisle == null || aisle == "?") {
@@ -115,12 +110,12 @@ public class Grocery {
     }
 
     @NotNull
-    public Integer getRecipeId() {
-        return recipeId;
+    public String getRecipeName() {
+        return recipeName;
     }
 
-    public void setRecipeId(@NotNull Integer recipeId) {
-        this.recipeId = recipeId;
+    public void setRecipeName(@NotNull String recipeName) {
+        this.recipeName = recipeName;
     }
 
     @NotNull
