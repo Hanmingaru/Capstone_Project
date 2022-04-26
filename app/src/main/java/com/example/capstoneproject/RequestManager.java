@@ -5,8 +5,10 @@ import android.util.Log;
 
 import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
+import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
 import com.example.capstoneproject.Models.RandomRecipeResponse;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.Models.RecipeSearchResponse;
 
 import java.util.List;
 
@@ -70,6 +72,25 @@ public class RequestManager {
             }
         }));
     }
+
+    public void SearchRecipe(RecipeSearchResponseListener listener, String query) {
+        CallRecipeSearch callRecipeSearch = retrofit.create(CallRecipeSearch.class);
+        Call<RecipeSearchResponse> call = callRecipeSearch.callRecipeSearch(context.getString(R.string.api_key), query);
+        call.enqueue((new Callback<RecipeSearchResponse>() {
+            @Override
+            public void onResponse(Call<RecipeSearchResponse> call, Response<RecipeSearchResponse> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body().getRecipes(), response.message());
+            }
+            @Override
+            public void onFailure(Call<RecipeSearchResponse> call, Throwable t) {
+                listener.didError((t.getMessage()));
+            }
+        }));
+    }
     private interface CallRandomRecipe{
         @GET("recipes/random")
         Call<RandomRecipeResponse> callRandomRecipe(
@@ -84,6 +105,14 @@ public class RequestManager {
         Call<RecipeNutritionResponse> callRecipeNutrition(
             @Header("X-RapidAPI-Key") String api_key,
             @Path("id") int id
+        );
+    }
+
+    private interface CallRecipeSearch {
+        @GET("recipes/complexSearch")
+        Call<RecipeSearchResponse> callRecipeSearch(
+            @Header("X-RapidAPI-Key") String api_key,
+            @Query("query") String query
         );
     }
 }

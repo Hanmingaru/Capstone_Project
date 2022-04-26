@@ -1,7 +1,9 @@
 package com.example.capstoneproject;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,7 +88,10 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void cardActionUp() {
-                Log.i("TAG", "CARDS MOVED UP");
+                Intent intent = new Intent(SwipeActivity.this, RecipeInfoActivity.class);
+                intent.putExtra("recipeData", randomRecipes.get(0));
+                intent.putExtra("macroData", macros);
+                SwipeActivity.this.startActivity(intent);
             }
         });
         if (savedInstanceState == null) {
@@ -113,11 +118,6 @@ public class SwipeActivity extends AppCompatActivity {
     private final NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
         public void didFetch(RecipeNutritionResponse response, String message) {
-//            Log.d("Response", "" + randomRecipes.get(0).getId());
-//            Log.d("Response", "" + response.getCalories());
-//            Log.d("Response", "" + response.getCarbs());
-//            Log.d("Response", "" + response.getFat());
-//            Log.d("Response", "" + response.getProtein());
             final DeckAdapter adapter = new DeckAdapter(randomRecipes, response, SwipeActivity.this);
             cardStack.setAdapter(adapter);
         }
