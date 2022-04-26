@@ -19,13 +19,15 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.capstoneproject.daos.GroceryDao;
 import com.example.capstoneproject.daos.RecipeDao;
+import com.example.capstoneproject.entities.Grocery;
 import com.example.capstoneproject.entities.Recipe;
 
 /**
  * See RecipeApplication on how to use database
  */
-@Database(entities = {Recipe.class}, version=1)
+@Database(entities = {Recipe.class, Grocery.class}, version=1)
 public abstract class RecipeDB extends RoomDatabase {
 
     // Name of the database file
@@ -55,8 +57,12 @@ public abstract class RecipeDB extends RoomDatabase {
         return  recipeInstance;
     }
 
-    /* Database access object used for CRUD operations for
-       the RecipeDB database. */
+    /* Database access object used for CRUD operations on
+        the Recipe Table for the RecipeDB database. */
     public abstract RecipeDao recipeDao();
+
+    /* Database access object used for CRUD operations on
+        the Grocery Table for the RecipeDB database. */
+    public abstract GroceryDao groceryDao();
 
 }

@@ -29,6 +29,13 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipe WHERE name LIKE :name AND favorite == 1")
     List<Recipe> loadFavoritesByName(String name);
 
+    @Query("SELECT * FROM recipe WHERE favorite == 1")
+    List<Recipe> getFavorite();
+
+    /* --- Return all not-favorite queries ---*/
+    @Query("SELECT * FROM recipe WHERE favorite == 0")
+    List<Recipe> getNotFavorite();
+
     /*
     ===================================
     |       All Recipes Queries       |
