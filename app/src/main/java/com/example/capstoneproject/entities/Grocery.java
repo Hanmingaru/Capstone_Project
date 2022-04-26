@@ -92,7 +92,7 @@ public class Grocery {
         this.recipeId = recipeId;
         this.name = name;
         this.found = found;
-        if (aisle == null) {
+        if (aisle == null || aisle == "?") {
             this.aisle = "Other";
         }
         else {

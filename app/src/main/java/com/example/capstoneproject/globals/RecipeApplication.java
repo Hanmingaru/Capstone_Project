@@ -19,7 +19,7 @@ import com.example.capstoneproject.database.RecipeDB;
  */
 public class RecipeApplication extends Application {
 
-    private RecipeDB recipeDB;
+    RecipeDB recipeDB;
 
     /*
     =====================================
