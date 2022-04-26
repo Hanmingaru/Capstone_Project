@@ -92,14 +92,12 @@ public class SwipeActivity extends AppCompatActivity {
     private final RandomAPIResponseListener randomListener = new RandomAPIResponseListener() {
         @Override
         public void didFetch(List<RandomRecipe> responses, String message) {
-            Log.d("apiResponse", "we did it!");
             randomRecipes = responses;
             manager.GetNutritionByID(nutritionListener, responses.get(0).getId());
         }
 
         @Override
         public void didError(String message) {
-            Log.d("apiResponse", message);
             Toast.makeText(SwipeActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
@@ -107,11 +105,6 @@ public class SwipeActivity extends AppCompatActivity {
     private final NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
         public void didFetch(RecipeNutritionResponse response, String message) {
-//            Log.d("Response", "" + randomRecipes.get(0).getId());
-//            Log.d("Response", "" + response.getCalories());
-//            Log.d("Response", "" + response.getCarbs());
-//            Log.d("Response", "" + response.getFat());
-//            Log.d("Response", "" + response.getProtein());
             final DeckAdapter adapter = new DeckAdapter(randomRecipes, response, SwipeActivity.this);
             cardStack.setAdapter(adapter);
         }

@@ -5,12 +5,14 @@
 
 package com.example.capstoneproject.Models;
 
+import com.example.capstoneproject.entities.Recipe;
+
 import java.util.List;
 
 public class RecipeSearchResponse {
-    List<RecipeSearch> recipes;
+    List<RecipeSearch> results;
 
     public List<RecipeSearch> getRecipes() {
-        return recipes;
+        return results;
     }
 }

@@ -5,7 +5,9 @@
 
 package com.example.capstoneproject.Models;
 
-public class RecipeSearch {
+import com.example.capstoneproject.entities.Recipe;
+
+public class RecipeSearch{
 
     public int id;
     public String title;
@@ -15,6 +17,7 @@ public class RecipeSearch {
     public int getId() {
         return id;
     }
+
     public String getTitle() {
         return title;
     }

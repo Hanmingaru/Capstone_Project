@@ -109,7 +109,7 @@ public class RequestManager {
     }
 
     private interface CallRecipeSearch {
-        @GET("recipes/search")
+        @GET("recipes/complexSearch")
         Call<RecipeSearchResponse> callRecipeSearch(
             @Header("X-RapidAPI-Key") String api_key,
             @Query("query") String query

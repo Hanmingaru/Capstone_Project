@@ -6,12 +6,25 @@
 package com.example.capstoneproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SearchView;
 
-public class SearchActivity extends AppCompatActivity {
+import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
+import com.example.capstoneproject.Models.RecipeSearch;
+import com.example.capstoneproject.entities.Recipe;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchActivity extends AppCompatActivity {
+    private RequestManager manager;
+    private RecyclerView recyclerView;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +35,36 @@ public class SearchActivity extends AppCompatActivity {
                     .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
                     .commit();
         }
-
+        context = SearchActivity.this;
+        manager = new RequestManager(this);
+        recyclerView = findViewById(R.id.search_recycler_view);
+        SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , new ArrayList<>());
+        recyclerView.setAdapter(searchAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
         SearchView searchView = findViewById(R.id.search_bar);
-        searchView.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
-    }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                manager.SearchRecipe(recipeSearchResponseListener, s);
+                return false;
+            }
 
-    public boolean onQueryTextSubmit(String query) {
-
-        return false;
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
+    private final RecipeSearchResponseListener recipeSearchResponseListener = new RecipeSearchResponseListener() {
+        @Override
+        public void didFetch(List<RecipeSearch> responses, String message) {
+            SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , responses);
+            recyclerView.setAdapter(searchAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+            Log.d("LOGDEEZNUTS", "MADGE");
+        }
+    };
 }
