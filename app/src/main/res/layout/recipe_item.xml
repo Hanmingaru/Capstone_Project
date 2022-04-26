@@ -57,6 +57,7 @@
             android:paddingHorizontal="30dp"
             android:paddingTop="3dp"
             android:text="Cost"
+            android:textColor="@color/black"
             android:theme="@style/RecipeDesc" />
 
     </LinearLayout>
