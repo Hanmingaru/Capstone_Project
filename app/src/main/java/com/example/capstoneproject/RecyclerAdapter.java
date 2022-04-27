@@ -76,6 +76,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public void deleteRecipe(int position) {
         recipeDao.deleteRecipeID(savedRecipes.get(position).getRecipeID());
+        savedRecipesFull.remove(position);
         savedRecipes.remove(position);
         notifyItemRemoved(position);
     }

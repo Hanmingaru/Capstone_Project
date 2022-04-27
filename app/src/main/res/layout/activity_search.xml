@@ -32,7 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout3"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        android:queryHint="Recipe Name"
+        android:iconifiedByDefault="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_view"
