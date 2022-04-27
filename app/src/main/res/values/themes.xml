@@ -35,7 +35,14 @@
 
     <style name="RecipeDesc" parent="">
         <item name="fontFamily">@font/oswaldtext</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Tab -->
+    <style name="TabStyle" parent="">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/red</item>
     </style>
 </resources>
