@@ -72,6 +72,9 @@ public interface RecipeDao {
     @Update
     void updateRecipe(Recipe recipe);
 
+    @Query("UPDATE recipe SET favorite = :favorite WHERE recipeID == :recipeID")
+    void updateRecipeID(Integer recipeID, boolean favorite);
+
     @Update
     void updateRecipes(Recipe... recipes);
 
