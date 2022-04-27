@@ -13,8 +13,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
 import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
+import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeSearch;
 import com.example.capstoneproject.entities.Recipe;
 

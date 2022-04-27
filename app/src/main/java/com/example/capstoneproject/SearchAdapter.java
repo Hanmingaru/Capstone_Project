@@ -6,11 +6,13 @@
 package com.example.capstoneproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.example.capstoneproject.Models.RecipeSearch;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder> {
     Context context;
@@ -39,6 +42,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     public void onBindViewHolder(@NonNull SearchAdapter.MyViewHolder holder, int position) {
         holder.recipeName.setText(searchedRecipes.get(position).getTitle());
         Picasso.get().load(searchedRecipes.get(position).getImage()).into(holder.recipeImage);
+        holder.recipeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RecipeInfoActivity.class);
+                intent.putExtra("recipeID", searchedRecipes.get(holder.getAdapterPosition()).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,23 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Created by Elliott Rheault on 2022.4.10
-  ~ Copyright © 2022 Elliott Rheault. All rights reserved.
-  -->
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecipeInfoActivity">
 
+    <ImageView
+        android:id="@+id/recipeImage5"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--        description-->
+
     <TextView
         android:id="@+id/recipeInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recipeImage5"
+        app:layout_constraintVertical_bias="0.013"
+        android:theme="@style/RecipeTitle"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/recipeInfoTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeInfoTitle"
+        android:theme="@style/TabStyle">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredients" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructions" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeInfoTab"
+        tools:layout_editor_absoluteX="3dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+      ~ Created by Elliott Rheault on 2022.4.10
+      ~ Copyright © 2022 Elliott Rheault. All rights reserved.
+      -->
+
