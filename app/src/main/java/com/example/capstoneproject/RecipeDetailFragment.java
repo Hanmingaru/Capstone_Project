@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,15 +71,13 @@ public class RecipeDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Log.i("tag", "hello");
-            link_t = getArguments().getString(PRICE);
-            Log.i("tag", link_t);
-            price_t = getArguments().getString(LINK);
-            calories_t = getArguments().getString(CALORIES);
-            proteins_t = getArguments().getString(PROTEINS);
-            fats_t = getArguments().getString(FATS);
-            carbs_t = getArguments().getString(CARBS);
-            time_t = getArguments().getString(TIME);
+                link_t = getArguments().getString(LINK);
+                price_t = getArguments().getString(PRICE);
+                calories_t = getArguments().getString(CALORIES);
+                proteins_t = getArguments().getString(PROTEINS);
+                fats_t = getArguments().getString(FATS);
+                carbs_t = getArguments().getString(CARBS);
+                time_t = getArguments().getString(TIME);
         }
     }
 
@@ -88,11 +88,11 @@ public class RecipeDetailFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         price_view = myView.findViewById(R.id.price_text);
         link_view = myView.findViewById(R.id.link_text);
-//        calories_view = myView.findViewById(R.id.calories_text);
-//        proteins_view = myView.findViewById(R.id.protein_text);
-//        fats_view = myView.findViewById(R.id.fats_text);
-//        carbs_view = myView.findViewById(R.id.carbs_text);
-//        time_view = myView.findViewById(R.id.time_requirement_text);
+        calories_view = myView.findViewById(R.id.calories_text);
+        proteins_view = myView.findViewById(R.id.protein_text);
+        fats_view = myView.findViewById(R.id.fats_text);
+        carbs_view = myView.findViewById(R.id.carbs_text);
+        time_view = myView.findViewById(R.id.time_requirement_text);
 
         return myView;
     }
@@ -101,12 +101,16 @@ public class RecipeDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        link_view.setText(link_t);
-//        price_view.append(price_t);
-//        calories_view.append(calories_t);
-//        proteins_view.append(proteins_t);
-//        fats_view.append(fats_t);
-//        carbs_view.append(carbs_t);
-//        time_view.append(time_t);
+        if(price_t != null) {
+            link_view.setText(Html.fromHtml(link_t));
+            link_view.setClickable(true);
+            link_view.setMovementMethod(LinkMovementMethod.getInstance());
+            price_view.append(price_t);
+            calories_view.append(calories_t);
+            proteins_view.append(proteins_t);
+            fats_view.append(fats_t);
+            carbs_view.append(carbs_t);
+            time_view.append(time_t);
+        }
     }
 }

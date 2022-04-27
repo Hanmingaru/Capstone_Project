@@ -16,22 +16,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class IngredientsFragment extends Fragment {
+public class InstructionFragment extends Fragment {
 
-    private static final String INGREDIENTS = "ingredients";
+    private static final String INSTRUCTION = "instruction";
 
-    private TextView ingredient_view;
+    private TextView instruction_view;
 
-    private String ingredients;
+    private String instruction;
 
-    public IngredientsFragment() {
+    public InstructionFragment() {
         // Required empty public constructor
     }
 
-    public static IngredientsFragment newInstance(String in) {
-        IngredientsFragment fragment = new IngredientsFragment();
+    public static InstructionFragment newInstance(String in) {
+        InstructionFragment fragment = new InstructionFragment();
         Bundle args = new Bundle();
-        args.putString(INGREDIENTS, in);
+        args.putString(INSTRUCTION, in);
         fragment.setArguments(args);
 
         return fragment;
@@ -41,7 +41,7 @@ public class IngredientsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            ingredients = getArguments().getString(INGREDIENTS);
+            instruction = getArguments().getString(INSTRUCTION);
         }
     }
 
@@ -49,8 +49,8 @@ public class IngredientsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View myView = inflater.inflate(R.layout.fragment_ingredients, container, false);
-        ingredient_view = myView.findViewById(R.id.ingredients_text);
+        View myView = inflater.inflate(R.layout.fragment_instruction, container, false);
+        instruction_view = myView.findViewById(R.id.instruction_text);
 
         return myView;
     }
@@ -59,8 +59,8 @@ public class IngredientsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(ingredients != null) {
-            ingredient_view.setText(ingredients);
+        if(instruction != null) {
+            instruction_view.setText(instruction);
         }
     }
 

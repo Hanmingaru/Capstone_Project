@@ -32,18 +32,18 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.squareup.picasso.Picasso;
 
 public class RecipeInfoActivity extends AppCompatActivity {
-    private RequestManager manager;
-    private ImageView recipeImage;
-    private TextView title;
-    private String price;
-    private String calories;
-    private String proteins;
-    private String fats;
-    private String carbs;
-    private String timeInMinutes;
+    private static RequestManager manager;
+    private static ImageView recipeImage;
+    private static TextView title;
+    private static String price;
+    private static String calories;
+    private static String proteins;
+    private static String fats;
+    private static String carbs;
+    private static String timeInMinutes;
     private String ingredients;
     private String instructions;
-    private String link ;
+    private static String link ;
 
     private ViewPageAdapater viewPageAdapter;
     private Fragment recipeDetailFragment;
@@ -58,34 +58,26 @@ public class RecipeInfoActivity extends AppCompatActivity {
         recipeImage = findViewById(R.id.recipeImage5);
         title = findViewById(R.id.recipeInfoTitle);
 
-//        price = recipeDetailFragment.getView().findViewById(R.id.price_text);
-//        link = findViewById(R.id.link_text);
-//        calories = findViewById(R.id.calories_text);
-//        proteins = findViewById(R.id.protein_text);
-//        fats = findViewById(R.id.fats_text);
-//        carbs = findViewById(R.id.carbs_text);
-//        timeInMinutes = findViewById(R.id.time_requirement_text);
-//        ingredients = findViewById(R.id.ingredients_text);
-//        instructions = findViewById(R.id.instructions_text);
-//
-//        link.setClickable(true);
-//        link.setMovementMethod(LinkMovementMethod.getInstance());
-
+        viewPageAdapter = new ViewPageAdapater(getSupportFragmentManager(), getLifecycle());
         int recipeID = getIntent().getIntExtra("recipeID", 0);
         final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().recipeDao();
         if (recipeDao.findByRecipeID(recipeID) != null) {
             setViews(recipeDao.findByRecipeID(recipeID));
+            viewPageAdapter.addFragment(RecipeDetailFragment.newInstance(link, price, calories, proteins, fats,carbs,timeInMinutes), "Details");
+            viewPageAdapter.addFragment(IngredientsFragment.newInstance(ingredients), "Ingredients");
+            viewPageAdapter.addFragment(InstructionFragment.newInstance(instructions), "Instructions");
         } else {
             manager = new RequestManager(this);
             manager.GetRecipeByID(recipeListener, recipeID);
             manager.GetNutritionByID(nutritionListener, recipeID);
+            viewPageAdapter.addFragment(RecipeDetailFragment.newInstance(link, price, calories, proteins, fats,carbs,timeInMinutes), "Details");
+            viewPageAdapter.addFragment(IngredientsFragment.newInstance(ingredients), "Ingredients");
+            viewPageAdapter.addFragment(InstructionFragment.newInstance(instructions), "Instructions");
         }
 
-        viewPageAdapter = new ViewPageAdapater(getSupportFragmentManager(), getLifecycle());
-        viewPageAdapter.addFragment(RecipeDetailFragment.newInstance(link, price, calories, proteins, fats,carbs,timeInMinutes), "Details");
-        viewPageAdapter.addFragment(new IngredientsFragment(), "Tab 2");
-        viewPageAdapter.addFragment(new IngredientsFragment(), "Tab 3");
+
+
         viewPager.setAdapter(viewPageAdapter);
         new TabLayoutMediator(
                 tabLayout,
@@ -102,17 +94,6 @@ public class RecipeInfoActivity extends AppCompatActivity {
     private void setViews(Recipe recipe) {
         Picasso.get().load(recipe.getImageUrl()).into(recipeImage);
         title.setText(recipe.getName());
-//        String text = "<a href=" + recipe.getWebsiteLink() + "> Website Link </a>";
-//        link.setText(Html.fromHtml(text));
-//          price.append(String.format("$%.2f",recipe.getPricePerServing()/100.0));
-//        calories.append(recipe.getCalories().substring(0, recipe.getCalories().length()-1));
-//        proteins.append(recipe.getProtein());
-//        fats.append(recipe.getFat());
-//        carbs.append(recipe.getCarbs());
-//        timeInMinutes.append(recipe.getPreparationTime() + "");
-//        ingredients.append(recipe.ingredientsToString());
-//        instructions.append(recipe.instructionsToString());
-
         link = "<a href=" + recipe.getWebsiteLink() + "> Website Link </a>";
         price = String.format("$%.2f",recipe.getPricePerServing()/100.0);
         calories = recipe.getCalories().substring(0, recipe.getCalories().length()-1);
@@ -130,18 +111,11 @@ public class RecipeInfoActivity extends AppCompatActivity {
             Picasso.get().load(response.getImage()).into(recipeImage);
             title.setText(response.getTitle());
             String text = "<a href=" + response.getSourceUrl() + "> Website Link </a>";
-//            price.append(String.format("$%.2f",response.getPricePerServing()/100.0));
-//            link.setText(Html.fromHtml(text));
-//            timeInMinutes.append(response.getReadyInMinutes() + "");
-//            ingredients.append(response.ingredientsToString());
-//            instructions.append(response.instructionsToString());
-//
             link = "<a href=" + response.getSourceUrl() + "> Website Link </a>";
             price = String.format("$%.2f",response.getPricePerServing()/100.0);
             timeInMinutes = response.getReadyInMinutes() + "";
             ingredients = response.ingredientsToString();
             instructions = response.instructionsToString();
-
         }
 
         @Override
@@ -153,11 +127,6 @@ public class RecipeInfoActivity extends AppCompatActivity {
     private NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
         public void didFetch(RecipeNutritionResponse response, String message) {
-//            calories.append(response.getCalories().substring(0, response.getCalories().length()-1));
-//            proteins.append(response.getProtein());
-//            fats.append(response.getFat());
-//            carbs.append(response.getCarbs());
-
             calories = response.getCalories().substring(0, response.getCalories().length()-1);
             proteins = response.getProtein();
             fats = response.getFat();
