@@ -12,14 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
+import com.example.capstoneproject.Listeners.RecipeByIdListener;
 import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
 import com.example.capstoneproject.Models.RandomRecipe;
+import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.Models.RecipeSearch;
 import com.example.capstoneproject.entities.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         context = SearchActivity.this;
         manager = new RequestManager(this);
         recyclerView = findViewById(R.id.search_recycler_view);
-        SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , new ArrayList<>());
+        SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , new ArrayList<>(), manager);
         recyclerView.setAdapter(searchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
         SearchView searchView = findViewById(R.id.search_bar);
@@ -61,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
     private final RecipeSearchResponseListener recipeSearchResponseListener = new RecipeSearchResponseListener() {
         @Override
         public void didFetch(List<RecipeSearch> responses, String message) {
-            SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , responses);
+            SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , responses, manager);
             recyclerView.setAdapter(searchAdapter);
         }
 
