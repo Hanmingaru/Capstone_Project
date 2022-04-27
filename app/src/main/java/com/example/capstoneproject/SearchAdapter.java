@@ -42,7 +42,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.MyViewHolder holder, int position) {
         holder.recipeName.setText(searchedRecipes.get(position).getTitle());
-        holder.recipeImage.setOnClickListener(new View.OnClickListener() {
+        Picasso.get().load(searchedRecipes.get(position).getImage()).into(holder.recipeImage);
+        holder.recipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
@@ -50,7 +51,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
                 context.startActivity(intent);
             }
         });
-        Picasso.get().load(searchedRecipes.get(position).getImage()).into(holder.recipeImage);
     }
 
     @Override

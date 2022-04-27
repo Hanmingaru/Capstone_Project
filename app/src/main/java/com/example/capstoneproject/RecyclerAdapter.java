@@ -43,7 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.recipeName.setText(savedRecipes.get(position).getName());
-        holder.recipeImage.setOnClickListener(new View.OnClickListener() {
+        Picasso.get().load(savedRecipes.get(position).getImageUrl()).into(holder.recipeImage);
+        holder.recipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
@@ -51,7 +52,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 context.startActivity(intent);
             }
         });
-        Picasso.get().load(savedRecipes.get(position).getImageUrl()).into(holder.recipeImage);
     }
 
     @Override
