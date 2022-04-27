@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstoneproject.Models.RecipeSearch;
-import com.example.capstoneproject.entities.Recipe;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     @Override
     public SearchAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.recipe_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.search_list_item, parent, false);
         return new SearchAdapter.MyViewHolder(view);
     }
 
@@ -54,8 +53,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeName = itemView.findViewById(R.id.recipeNameList);
-            recipeImage = itemView.findViewById(R.id.recipeImageList);
+            recipeName = itemView.findViewById(R.id.recipeNameList2);
+            recipeImage = itemView.findViewById(R.id.recipeImageList2);
         }
     }
 }

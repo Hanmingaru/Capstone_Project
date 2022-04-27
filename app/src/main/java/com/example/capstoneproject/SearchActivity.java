@@ -67,4 +67,6 @@ public class SearchActivity extends AppCompatActivity {
             Log.d("didError", "This is an error");
         }
     };
+
+
 }
