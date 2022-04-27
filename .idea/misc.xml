@@ -16,14 +16,17 @@
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/drawable/splashscreen_background.xml" value="0.1795" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_grocery.xml" value="0.38819875776397517" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_main.xml" value="0.67" />
+        <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_recipe_info.xml" value="0.75" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_saved.xml" value="0.67" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_search.xml" value="0.40859030837004406" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/activity_swipe.xml" value="0.4322250639386189" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/content_main.xml" value="0.22" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_first.xml" value="0.38645833333333335" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_groceries.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_ingredients.xml" value="0.8688524590163934" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_nav_bar.xml" value="0.5615079365079365" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_navbar.xml" value="0.40859030837004406" />
+        <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.67" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/fragment_recommendation.xml" value="0.38645833333333335" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/main_activity.xml" value="0.38645833333333335" />
         <entry key="..\:/Users/Hwan/StudioProjects/Capstone_Project/app/src/main/res/layout/main_fragment.xml" value="0.38645833333333335" />
@@ -36,7 +39,7 @@
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/ic_touch.xml" value="0.103" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/drawable/splashscreen_background.xml" value="0.103" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_grocery.xml" value="0.1" />
-        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_recipe_info.xml" value="0.10043668122270742" />
+        <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_recipe_info.xml" value="0.1" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_saved.xml" value="0.25" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Users/andyt/AndroidStudioProjects/CapstoneProject/app/src/main/res/layout/activity_swipe.xml" value="0.18659420289855072" />
