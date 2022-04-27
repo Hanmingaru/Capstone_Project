@@ -63,7 +63,6 @@ public class RecipeDetailFragment extends Fragment {
         args.putString(CARBS, carbs);
         args.putString(TIME, time);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -79,6 +78,7 @@ public class RecipeDetailFragment extends Fragment {
                 carbs_t = getArguments().getString(CARBS);
                 time_t = getArguments().getString(TIME);
         }
+        Log.i("RECIPEDETAILFRAG", link_t + " " + price_t + " " + calories_t);
     }
 
     @Override

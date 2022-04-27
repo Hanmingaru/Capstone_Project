@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class IngredientsFragment extends Fragment {
         if (getArguments() != null) {
             ingredients = getArguments().getString(INGREDIENTS);
         }
+        Log.i("IngredientsFrag", ingredients);
     }
 
     @Override

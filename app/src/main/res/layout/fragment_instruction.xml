@@ -16,29 +16,17 @@
         tools:context=".IngredientsFragment" >
 
         <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/instruction_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="30dp"
-            android:text="Instructions:"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:theme="@style/RecipeTitle"/>
 
         <TextView
             android:id="@+id/instruction_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginHorizontal="30dp"
             android:text=" "
             android:theme="@style/RecipeDesc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instruction_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

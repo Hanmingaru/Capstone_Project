@@ -13,20 +13,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ViewPageAdapater extends FragmentStateAdapter {
+public class ViewPageAdapter extends FragmentStateAdapter {
 
     ArrayList<Fragment> fragments = new ArrayList<Fragment>();
     ArrayList<String> titles = new ArrayList<String>();
 
-    public ViewPageAdapater(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public ViewPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
     public void addFragment(Fragment fragment, String title) {
         fragments.add(fragment);
         titles.add(title);
+    }
+    public void setFragments(ArrayList<Fragment> fragments, ArrayList<String> titles) {
+        this.fragments = fragments;
+        this.titles = titles;
     }
     @NonNull
     @Override
@@ -42,6 +47,6 @@ public class ViewPageAdapater extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return fragments.size();
     }
 }
