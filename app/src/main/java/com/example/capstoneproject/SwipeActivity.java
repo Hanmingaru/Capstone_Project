@@ -44,19 +44,17 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void cardSwipedLeft(int position) {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
-                Toast.makeText(SwipeActivity.this, "Card Swiped Left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void cardSwipedRight(int position) {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
 
-                Toast.makeText(SwipeActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
 
                 // FIXME: macros does not work
 
                 // Get randomRecipe object from api
-                RandomRecipe recipeResponse = randomRecipes.get(0);
+                RandomRecipe recipeResponse = firstRecipe;
 
                 // Create recipe object to store in database
                 Recipe recipe = new Recipe(recipeResponse, macros);
@@ -86,10 +84,6 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void cardActionUp() {
-                Intent intent = new Intent(SwipeActivity.this, RecipeInfoActivity.class);
-                intent.putExtra("recipeData", randomRecipes.get(0));
-                intent.putExtra("macroData", macros);
-                SwipeActivity.this.startActivity(intent);
             }
         });
         if (savedInstanceState == null) {
@@ -104,6 +98,7 @@ public class SwipeActivity extends AppCompatActivity {
         @Override
         public void didFetch(List<RandomRecipe> responses, String message) {
             randomRecipes = responses;
+            firstRecipe = responses.get(0);
             manager.GetNutritionByID(nutritionListener, responses.get(0).getId());
         }
 
@@ -116,6 +111,7 @@ public class SwipeActivity extends AppCompatActivity {
     private final NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
         public void didFetch(RecipeNutritionResponse response, String message) {
+            macros = response;
             final DeckAdapter adapter = new DeckAdapter(randomRecipes, response, SwipeActivity.this);
             cardStack.setAdapter(adapter);
         }

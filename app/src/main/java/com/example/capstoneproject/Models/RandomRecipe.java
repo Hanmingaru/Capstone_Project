@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-public class RandomRecipe implements Parcelable {
+public class RandomRecipe {
     public boolean vegetarian;
     public boolean vegan;
     public boolean glutenFree;
@@ -41,53 +41,6 @@ public class RandomRecipe implements Parcelable {
     public List<AnalyzedInstruction> analyzedInstructions;
     public Object originalId;
     public String spoonacularSourceUrl;
-
-    protected RandomRecipe(Parcel in) {
-        vegetarian = in.readByte() != 0;
-        vegan = in.readByte() != 0;
-        glutenFree = in.readByte() != 0;
-        dairyFree = in.readByte() != 0;
-        veryHealthy = in.readByte() != 0;
-        cheap = in.readByte() != 0;
-        veryPopular = in.readByte() != 0;
-        sustainable = in.readByte() != 0;
-        weightWatcherSmartPoints = in.readInt();
-        gaps = in.readString();
-        lowFodmap = in.readByte() != 0;
-        aggregateLikes = in.readInt();
-        spoonacularScore = in.readInt();
-        healthScore = in.readInt();
-        creditsText = in.readString();
-        license = in.readString();
-        sourceName = in.readString();
-        pricePerServing = in.readDouble();
-        id = in.readInt();
-        title = in.readString();
-        readyInMinutes = in.readInt();
-        servings = in.readInt();
-        sourceUrl = in.readString();
-        image = in.readString();
-        imageType = in.readString();
-        summary = in.readString();
-        cuisines = in.createStringArrayList();
-        dishTypes = in.createStringArrayList();
-        diets = in.createStringArrayList();
-        occasions = in.createStringArrayList();
-        instructions = in.readString();
-        spoonacularSourceUrl = in.readString();
-    }
-
-    public static final Creator<RandomRecipe> CREATOR = new Creator<RandomRecipe>() {
-        @Override
-        public RandomRecipe createFromParcel(Parcel in) {
-            return new RandomRecipe(in);
-        }
-
-        @Override
-        public RandomRecipe[] newArray(int size) {
-            return new RandomRecipe[size];
-        }
-    };
 
     public boolean isVegetarian() {
         return vegetarian;
@@ -229,44 +182,25 @@ public class RandomRecipe implements Parcelable {
         return spoonacularSourceUrl;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String ingredientsToString() {
+        StringBuilder item = new StringBuilder();
+        for (int i = 0; i < extendedIngredients.size(); i++ ) {
+            ExtendedIngredient ingredient = extendedIngredients.get(i);
+            item.append(String.format("%d) %s %.2f %s\n", i, ingredient.getName(), ingredient.getAmount(), ingredient.getUnit()));
+        }
+        return item.toString();
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeByte((byte) (vegetarian ? 1 : 0));
-        parcel.writeByte((byte) (vegan ? 1 : 0));
-        parcel.writeByte((byte) (glutenFree ? 1 : 0));
-        parcel.writeByte((byte) (dairyFree ? 1 : 0));
-        parcel.writeByte((byte) (veryHealthy ? 1 : 0));
-        parcel.writeByte((byte) (cheap ? 1 : 0));
-        parcel.writeByte((byte) (veryPopular ? 1 : 0));
-        parcel.writeByte((byte) (sustainable ? 1 : 0));
-        parcel.writeInt(weightWatcherSmartPoints);
-        parcel.writeString(gaps);
-        parcel.writeByte((byte) (lowFodmap ? 1 : 0));
-        parcel.writeInt(aggregateLikes);
-        parcel.writeInt(spoonacularScore);
-        parcel.writeInt(healthScore);
-        parcel.writeString(creditsText);
-        parcel.writeString(license);
-        parcel.writeString(sourceName);
-        parcel.writeDouble(pricePerServing);
-        parcel.writeInt(id);
-        parcel.writeString(title);
-        parcel.writeInt(readyInMinutes);
-        parcel.writeInt(servings);
-        parcel.writeString(sourceUrl);
-        parcel.writeString(image);
-        parcel.writeString(imageType);
-        parcel.writeString(summary);
-        parcel.writeStringList(cuisines);
-        parcel.writeStringList(dishTypes);
-        parcel.writeStringList(diets);
-        parcel.writeStringList(occasions);
-        parcel.writeString(instructions);
-        parcel.writeString(spoonacularSourceUrl);
+    public String instructionsToString() {
+        StringBuilder item = new StringBuilder();
+        for (int i = 0; i < analyzedInstructions.size(); i++ ) {
+            AnalyzedInstruction instruction = analyzedInstructions.get(i);
+            List<Step> steps = instruction.getSteps();
+            item.append(instruction.getName() +"\n");
+            for (int j = 0; j < steps.size(); j++ ) {
+                item.append(steps.get(j).number + ") " + steps.get(j).getStep() + "\n");
+            }
+        }
+        return item.toString();
     }
 }

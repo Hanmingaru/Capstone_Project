@@ -61,6 +61,14 @@ public class DeckAdapter extends BaseAdapter {
         ((TextView) v.findViewById(R.id.recipeTime)).setText("Time (min): " + recipeData.get(position).getReadyInMinutes());
         ((TextView) v.findViewById(R.id.recipeCost)).setText(String.format("Price per serving: $%.2f",recipeData.get(position).getPricePerServing()/100.0));
         Picasso.get().load(recipeData.get(position).getImage()).into((ImageView) v.findViewById(R.id.recipeImage));
+        v.findViewById(R.id.recipeImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RecipeInfoActivity.class);
+                intent.putExtra("recipeID", recipeData.get(0).getId());
+                context.startActivity(intent);
+            }
+        });
         return v;
     }
 }

@@ -513,4 +513,26 @@ public class Recipe {
     public String toString() {
         return id.toString();
     }
+
+    public String instructionsToString() {
+        List<String> instructions = Methods.deserializeList(this.instructions);
+        StringBuilder item = new StringBuilder();
+        int step = 1;
+        for (String instruction : instructions) {
+            item.append(step + ") " + instruction + "\n");
+            step++;
+        }
+        return item.toString();
+    }
+
+    public String ingredientsToString() {
+        List<String> ingredients = Methods.deserializeList(this.ingredients);
+        StringBuilder item = new StringBuilder();
+        int step = 1;
+        for (String ingredient : ingredients) {
+            item.append(step + ") " + ingredient + "\n");
+            step++;
+        }
+        return item.toString();
+    }
 }

@@ -10,32 +10,11 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class RecipeNutritionResponse implements Parcelable {
+public class RecipeNutritionResponse {
     public String calories;
     public String carbs;
     public String fat;
     public String protein;
-
-    protected RecipeNutritionResponse(Parcel in) {
-        calories = in.readString();
-        carbs = in.readString();
-        fat = in.readString();
-        protein = in.readString();
-    }
-    public RecipeNutritionResponse() {
-    }
-
-    public static final Creator<RecipeNutritionResponse> CREATOR = new Creator<RecipeNutritionResponse>() {
-        @Override
-        public RecipeNutritionResponse createFromParcel(Parcel in) {
-            return new RecipeNutritionResponse(in);
-        }
-
-        @Override
-        public RecipeNutritionResponse[] newArray(int size) {
-            return new RecipeNutritionResponse[size];
-        }
-    };
 
     public String getCalories() {
         return calories;
@@ -62,16 +41,4 @@ public class RecipeNutritionResponse implements Parcelable {
         return macroList;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(calories);
-        parcel.writeString(carbs);
-        parcel.writeString(fat);
-        parcel.writeString(protein);
-    }
 }
