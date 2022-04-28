@@ -15,6 +15,7 @@ import android.widget.SearchView;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.globals.RecipeApplication;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,27 +59,33 @@ public class SavedActivity extends AppCompatActivity {
         // Setup SearchView
         initSearchWidgets();
 
-        // Create onClickListener for all button
-        Button allButton = (Button) findViewById(R.id.allFilter);
-        allButton.setBackgroundColor(getResources().getColor(R.color.red));
-        allButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                recyclerAdapter.setFavoritesSelected(false);
-                // Pass "all" through to specify filter type
-                recyclerAdapter.getFilter().filter("all");
-            }
-        });
+        // Setup tab layout
+        setupTabLayout();
 
-        // Create onClickListener for favorites button
-        Button favoritesButton = (Button) findViewById(R.id.favoritesFilter);
-        favoritesButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                recyclerAdapter.setFavoritesSelected(true);
-                // Pass "favorites" through to specify filter type
-                recyclerAdapter.getFilter().filter("favorites");
-            }
-        });
+
+        // Create onClickListener for all button
+//        Button allButton = (Button) findViewById(R.id.allFilter);
+//        allButton.setBackgroundColor(getResources().getColor(R.color.red));
+//        allButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                recyclerAdapter.setFavoritesSelected(false);
+//                // Pass "all" through to specify filter type
+//                recyclerAdapter.getFilter().filter("all");
+//            }
+//        });
+//
+//        // Create onClickListener for favorites button
+//        Button favoritesButton = (Button) findViewById(R.id.favoritesFilter);
+//        favoritesButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                recyclerAdapter.setFavoritesSelected(true);
+//                // Pass "favorites" through to specify filter type
+//                recyclerAdapter.getFilter().filter("favorites");
+//            }
+//        });
     }
+
+
 
     private void initSearchWidgets() {
         SearchView searchView = findViewById(R.id.searchView);
@@ -99,6 +106,33 @@ public class SavedActivity extends AppCompatActivity {
         });
     }
 
+    private void setupTabLayout() {
+        TabLayout tabLayout = findViewById(R.id.savedRecipesTab);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // 0 for "All" tab, and 1 or "Favorites" tab selected
+                if (tab.getPosition() == 0) {
+                    recyclerAdapter.setFavoritesSelected(false);
+//                  // Pass "all" through to specify filter type
+                    recyclerAdapter.getFilter().filter("all");
+                } else {
+                    recyclerAdapter.setFavoritesSelected(true);
+//                  // Pass "all" through to specify filter type
+                    recyclerAdapter.getFilter().filter("favorites");
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
 
 }
