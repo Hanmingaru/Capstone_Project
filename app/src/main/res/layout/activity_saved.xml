@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:iconifiedByDefault="false"
-        android:queryHint="Recipe Name"
+        android:queryHint="Search Saved Recipes"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <com.google.android.material.tabs.TabLayout

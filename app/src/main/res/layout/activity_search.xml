@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout3"
         tools:layout_editor_absoluteX="1dp"
-        android:queryHint="Recipe Name"
+        android:queryHint="Search Online Recipes"
         android:iconifiedByDefault="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
