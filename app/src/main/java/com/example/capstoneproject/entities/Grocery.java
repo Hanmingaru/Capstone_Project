@@ -44,9 +44,9 @@ public class Grocery {
     private Integer id;
 
     // id of the recipe this ingredient belongs to
-    @ColumnInfo(name = "recipeName")
+    @ColumnInfo(name = "recipeID")
     @NotNull
-    private String recipeName;
+    private Integer recipeID;
 
     // name of this ingredient
     @ColumnInfo(name = "name")
@@ -75,16 +75,16 @@ public class Grocery {
 
     /**
      *
-     * @param recipeName Name of the recipe this grocery item belongs to
-     * @param name       Name of the ingredient
-     * @param found      Boolean to update status of ingredient (used to keep
-     *                     track if user marked item as found or not marked yet)
-     * @param aisle      Name of the isle this ingredient is found in
+     * @param recipeID ID of the recipe this grocery item belongs to
+     * @param name     Name of the ingredient
+     * @param found    Boolean to update status of ingredient (used to keep
+     *                   track if user marked item as found or not marked yet)
+     * @param aisle    Name of the isle this ingredient is found in
      */
     @Ignore
-    public Grocery(@NotNull String recipeName, @NotNull String name, @NotNull Boolean found,
+    public Grocery(@NotNull Integer recipeID, @NotNull String name, @NotNull Boolean found,
                    @NotNull String aisle) {
-        this.recipeName = recipeName;
+        this.recipeID = recipeID;
         this.name = name;
         this.found = found;
         if (aisle == null || aisle == "?") {
@@ -107,15 +107,6 @@ public class Grocery {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @NotNull
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setRecipeName(@NotNull String recipeName) {
-        this.recipeName = recipeName;
     }
 
     @NotNull
@@ -143,6 +134,15 @@ public class Grocery {
 
     public void setAisle(@NotNull String aisle) {
         this.aisle = aisle;
+    }
+
+    @NotNull
+    public Integer getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(@NotNull Integer recipeID) {
+        this.recipeID = recipeID;
     }
 
     /*

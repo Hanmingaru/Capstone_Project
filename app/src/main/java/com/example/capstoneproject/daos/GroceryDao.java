@@ -29,9 +29,9 @@ public interface GroceryDao {
     @Query("SELECT * FROM grocery")
     List<Grocery> getAll();
 
-    // Return all Grocery items with name of recipeName
-    @Query("SELECT * FROM grocery WHERE recipeName LIKE :recipeName")
-    List<Grocery> findAllByRecipeName(String recipeName);
+    // Return all Grocery items with id recipeID
+    @Query("SELECT * FROM grocery WHERE recipeID == :recipeID")
+    List<Grocery> findAllByRecipeID(Integer recipeID);
 
     // Return all Grocery items with similar names
     @Query("SELECT * FROM grocery WHERE name LIKE :name")
