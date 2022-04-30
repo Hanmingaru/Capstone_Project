@@ -43,8 +43,6 @@ public class ViewPageAdapter extends FragmentStateAdapter {
         return titles.get(position);
     }
 
-    public Fragment getFragment(int position) { return fragments.get(position); }
-
     @Override
     public int getItemCount() {
         return fragments.size();

@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.globals.RecipeApplication;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.squareup.picasso.Picasso;
@@ -56,6 +59,13 @@ public class RecipeInfoActivity extends AppCompatActivity {
         titles = new ArrayList<>();
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.recipeInfoTab);
+        MaterialToolbar appBar = findViewById(R.id.topAppBar);
+        appBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recipeImage = findViewById(R.id.recipeImage5);
         title = findViewById(R.id.recipeInfoTitle);

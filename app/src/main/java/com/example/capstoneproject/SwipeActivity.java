@@ -50,7 +50,6 @@ public class SwipeActivity extends AppCompatActivity {
             public void cardSwipedRight(int position) {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
 
-
                 // FIXME: macros does not work
 
                 // Get randomRecipe object from api
