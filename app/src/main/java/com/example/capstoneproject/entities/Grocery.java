@@ -48,6 +48,11 @@ public class Grocery {
     @NotNull
     private Integer recipeID;
 
+    // name of the recipe this ingredient belongs to
+    @ColumnInfo(name = "recipeName")
+    @NotNull
+    private String recipeName;
+
     // name of this ingredient
     @ColumnInfo(name = "name")
     @NotNull
@@ -71,20 +76,23 @@ public class Grocery {
     */
 
     public Grocery() {
+        found = null;
     }
 
     /**
      *
-     * @param recipeID ID of the recipe this grocery item belongs to
-     * @param name     Name of the ingredient
-     * @param found    Boolean to update status of ingredient (used to keep
-     *                   track if user marked item as found or not marked yet)
-     * @param aisle    Name of the isle this ingredient is found in
+     * @param recipeID   ID of the recipe this grocery item belongs to
+     * @param recipeName Name of the recipe this grocery item belongs to
+     * @param name       Name of the ingredient
+     * @param found      Boolean to update status of ingredient (used to keep
+     *                     track if user marked item as found or not marked yet)
+     * @param aisle      Name of the isle this ingredient is found in
      */
     @Ignore
-    public Grocery(@NotNull Integer recipeID, @NotNull String name, @NotNull Boolean found,
+    public Grocery(@NotNull Integer recipeID, @NotNull String recipeName, @NotNull String name, @NotNull Boolean found,
                    @NotNull String aisle) {
         this.recipeID = recipeID;
+        this.recipeName = recipeName;
         this.name = name;
         this.found = found;
         if (aisle == null || aisle == "?") {
@@ -143,6 +151,15 @@ public class Grocery {
 
     public void setRecipeID(@NotNull Integer recipeID) {
         this.recipeID = recipeID;
+    }
+
+    @NotNull
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(@NotNull String recipeName) {
+        this.recipeName = recipeName;
     }
 
     /*

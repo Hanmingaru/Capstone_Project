@@ -484,7 +484,7 @@ public class Recipe {
         // Iterate though every element in ingredients
         for (int i = 0; i < ingredientsSize; i++) {
             // Create a new Grocery object for each ingredient
-            groceryList[i] = new Grocery(this.recipeID, ingredients.get(i), false, aisle.get(i));
+            groceryList[i] = new Grocery(this.recipeID, this.name, ingredients.get(i), false, aisle.get(i));
         }
 
         AsyncTask.execute(new Runnable() {
