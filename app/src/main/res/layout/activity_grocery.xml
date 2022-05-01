@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -21,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red"
+            app:menu="@menu/grocery_menu"
             app:title="TENDER"
             app:titleCentered="true"
             app:titleTextAppearance="@style/ToolBarTitle"
@@ -30,27 +30,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grocery_recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toTopOf="@+id/navbar_fragment_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout2" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/grocery_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:src="@drawable/round_button_24"
-        app:layout_constraintBottom_toBottomOf="@+id/grocery_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
-        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navbar_fragment_id"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Elliott Rheault on 2022.5.1
+  ~ Copyright © 2022 Elliott Rheault. All rights reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/grocery_clear"
+        android:icon="@drawable/ic_trash"
+        android:title="Clear"
+        app:showAsAction="always"
+        />
+</menu>

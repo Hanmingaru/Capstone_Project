@@ -50,7 +50,6 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull GroceryAdapter.MyViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
-        holder.groceryNumber.setText((index) + "");
         holder.groceryName.setText(groceries.get(index).getName());
         holder.deleteGrocery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +75,10 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView groceryNumber;
         private TextView groceryName;
         private Button deleteGrocery;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            groceryNumber = itemView.findViewById(R.id.grocery_number);
             groceryName = itemView.findViewById(R.id.grocery_name);
             deleteGrocery = itemView.findViewById(R.id.delete_grocery);
         }

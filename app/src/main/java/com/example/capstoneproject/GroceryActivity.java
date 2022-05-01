@@ -1,11 +1,13 @@
 package com.example.capstoneproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,6 +16,7 @@ import com.example.capstoneproject.daos.GroceryDao;
 import com.example.capstoneproject.entities.Grocery;
 import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -39,17 +42,23 @@ public class GroceryActivity extends AppCompatActivity {
         if (groceries.size() > 0)
             Log.i("FROM GROCERIES", groceries.size() + "");
         recyclerView = findViewById(R.id.grocery_recycler_view);
-        fab = findViewById(R.id.grocery_fab);
+
         adapter = new GroceryAdapter(GroceryActivity.this, groceries, groceryDao);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fab.setOnClickListener(new View.OnClickListener() {
+        MaterialToolbar appBar = findViewById(R.id.topAppBar);
+        appBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
-                groceryDao.deleteAll();
-                groceries.clear();
-                adapter.notifyDataSetChanged();
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.grocery_clear) {
+                    groceryDao.deleteAll();
+                    groceries.clear();
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+                return false;
             }
         });
+
     }
 }
