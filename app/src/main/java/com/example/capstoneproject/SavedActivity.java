@@ -5,20 +5,18 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
-import android.content.Intent;
 import android.widget.SearchView;
 
+import com.example.capstoneproject.adapters.RecyclerAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
+import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SavedActivity extends AppCompatActivity {
 

@@ -10,7 +10,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeDetailFragment">
+    tools:context=".fragments.RecipeDetailFragment">
 
     <TextView
         android:id="@+id/link_text"

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="CapstoneProject" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -53,4 +53,5 @@
         <item name="android:textColorHint">@color/grey</item>
         <item name="android:textColorSecondary">@color/black</item>
     </style>
+
 </resources>

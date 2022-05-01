@@ -83,6 +83,9 @@ public interface GroceryDao {
     @Delete
     void delete(Grocery grocery);
 
+    @Query("DELETE FROM grocery WHERE name == :name")
+    void deleteByName(String name);
+
     @Query("DELETE FROM grocery WHERE recipeName LIKE :recipeName")
     void deleteAllByRecipeName(String recipeName);
 

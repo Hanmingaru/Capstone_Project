@@ -1,9 +1,7 @@
 package com.example.capstoneproject;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +11,10 @@ import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
-import com.example.capstoneproject.daos.GroceryDao;
+import com.example.capstoneproject.adapters.DeckAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
-import com.example.capstoneproject.database.RecipeDB;
 import com.example.capstoneproject.entities.Recipe;
+import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
 
 import java.util.ArrayList;
@@ -49,20 +47,10 @@ public class SwipeActivity extends AppCompatActivity {
             @Override
             public void cardSwipedRight(int position) {
                 manager.GetRandomRecipes(randomListener, new ArrayList<>());
-
-                // FIXME: macros does not work
-
-                // Get randomRecipe object from api
                 RandomRecipe recipeResponse = firstRecipe;
-
-                // Create recipe object to store in database
                 Recipe recipe = new Recipe(recipeResponse, macros);
-
-                // Get Recipe Database Access Object
                 final RecipeDao recipeDao = ((RecipeApplication) getApplicationContext())
                         .getRecipeDB().recipeDao();
-
-                // Run the task
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

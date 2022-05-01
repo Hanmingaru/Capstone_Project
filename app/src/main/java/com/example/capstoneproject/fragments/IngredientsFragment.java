@@ -1,9 +1,9 @@
 /*
- * Created by Elliott Rheault on 2022.4.27
+ * Created by Elliott Rheault on 2022.5.1
  * Copyright © 2022 Elliott Rheault. All rights reserved.
  */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.fragments;
 
 import android.os.Bundle;
 
@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.capstoneproject.R;
 
 public class IngredientsFragment extends Fragment {
 
@@ -44,7 +46,6 @@ public class IngredientsFragment extends Fragment {
         if (getArguments() != null) {
             ingredients = getArguments().getString(INGREDIENTS);
         }
-        Log.i("IngredientsFrag", ingredients);
     }
 
     @Override

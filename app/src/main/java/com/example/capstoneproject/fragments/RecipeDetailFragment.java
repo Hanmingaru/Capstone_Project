@@ -1,9 +1,9 @@
 /*
- * Created by Elliott Rheault on 2022.4.27
+ * Created by Elliott Rheault on 2022.5.1
  * Copyright © 2022 Elliott Rheault. All rights reserved.
  */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.fragments;
 
 import android.os.Bundle;
 
@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.capstoneproject.R;
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -78,7 +80,6 @@ public class RecipeDetailFragment extends Fragment {
                 carbs_t = getArguments().getString(CARBS);
                 time_t = getArguments().getString(TIME);
         }
-        Log.i("RECIPEDETAILFRAG", link_t + " " + price_t + " " + calories_t);
     }
 
     @Override

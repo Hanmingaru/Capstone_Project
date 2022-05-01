@@ -12,20 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
-import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
-import com.example.capstoneproject.Listeners.RecipeByIdListener;
 import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
-import com.example.capstoneproject.Models.RandomRecipe;
-import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.Models.RecipeSearch;
-import com.example.capstoneproject.entities.Recipe;
-import com.squareup.picasso.Picasso;
+import com.example.capstoneproject.adapters.SearchAdapter;
+import com.example.capstoneproject.fragments.NavBarFragment;
 
 import java.util.ArrayList;
 import java.util.List;
