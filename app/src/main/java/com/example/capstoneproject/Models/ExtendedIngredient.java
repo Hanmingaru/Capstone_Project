@@ -100,7 +100,6 @@ public class ExtendedIngredient implements Parcelable {
         return metaInformation;
     }
 
-
     @Override
     public int describeContents() {
         return 0;

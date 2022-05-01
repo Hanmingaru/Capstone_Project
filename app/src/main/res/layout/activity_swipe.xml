@@ -59,7 +59,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navbar_fragment_id"
-        android:name="com.example.capstoneproject.NavBarFragment"
+        android:name="com.example.capstoneproject.fragments.NavBarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         swipedeck:layout_constraintBottom_toBottomOf="parent" />

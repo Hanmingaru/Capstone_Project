@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.capstoneproject.adapters.RecyclerAdapter;
+
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 

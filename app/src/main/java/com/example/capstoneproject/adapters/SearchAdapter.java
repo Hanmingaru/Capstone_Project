@@ -1,9 +1,9 @@
 /*
- * Created by Elliott Rheault on 2022.4.20
+ * Created by Elliott Rheault on 2022.5.1
  * Copyright © 2022 Elliott Rheault. All rights reserved.
  */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,12 +25,14 @@ import com.example.capstoneproject.Listeners.RecipeByIdListener;
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.Models.RecipeSearch;
+import com.example.capstoneproject.R;
+import com.example.capstoneproject.RecipeInfoActivity;
+import com.example.capstoneproject.RequestManager;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.globals.RecipeApplication;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

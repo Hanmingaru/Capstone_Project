@@ -1,4 +1,9 @@
-package com.example.capstoneproject;
+/*
+ * Created by Elliott Rheault on 2022.5.1
+ * Copyright © 2022 Elliott Rheault. All rights reserved.
+ */
+
+package com.example.capstoneproject.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.capstoneproject.GroceryActivity;
+import com.example.capstoneproject.R;
+import com.example.capstoneproject.SavedActivity;
+import com.example.capstoneproject.SearchActivity;
+import com.example.capstoneproject.SwipeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

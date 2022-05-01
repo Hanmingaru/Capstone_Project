@@ -164,9 +164,7 @@ public class RandomRecipe implements Parcelable {
         return pricePerServing;
     }
 
-    public List<ExtendedIngredient> getExtendedIngredients() {
-        return extendedIngredients;
-    }
+    public List<ExtendedIngredient> getExtendedIngredients() { return extendedIngredients; }
 
     public int getId() {
         return id;

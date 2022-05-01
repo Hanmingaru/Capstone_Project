@@ -1,9 +1,9 @@
 /*
- * Created by Elliott Rheault on 2022.4.27
+ * Created by Elliott Rheault on 2022.5.1
  * Copyright © 2022 Elliott Rheault. All rights reserved.
  */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.adapters;
 
 import android.os.Bundle;
 
