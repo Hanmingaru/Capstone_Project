@@ -22,6 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red"
             app:navigationIcon="@drawable/ic_back"
+            app:menu="@menu/recipe_menu"
             app:title="TENDER"
             app:titleCentered="true"
             app:titleTextAppearance="@style/ToolBarTitle"
