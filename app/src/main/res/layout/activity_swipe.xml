@@ -9,8 +9,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".SwipeActivity"
-    android:theme="@style/Theme.CapstoneProject">
+    tools:context=".SwipeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
