@@ -98,7 +98,7 @@ public class SwipeActivity extends AppCompatActivity {
         public void didFetch(List<RandomRecipe> responses, String message) {
             randomRecipes = responses;
             firstRecipe = responses.get(0);
-            manager.GetNutritionByID(nutritionListener, responses.get(0).getId());
+            manager.GetNutritionByID(nutritionListener, responses.get(0).getId(), 0);
         }
 
         @Override
@@ -109,7 +109,7 @@ public class SwipeActivity extends AppCompatActivity {
 
     private final NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
-        public void didFetch(RecipeNutritionResponse response, String message) {
+        public void didFetch(RecipeNutritionResponse response, String message, int index) {
             macros = response;
             final DeckAdapter adapter = new DeckAdapter(randomRecipes, response, SwipeActivity.this);
             cardStack.setAdapter(adapter);
