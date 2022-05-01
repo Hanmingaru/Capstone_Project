@@ -12,6 +12,6 @@ import java.util.List;
 import java.util.Random;
 
 public interface RecipeByIdListener {
-    void didFetch(RandomRecipe response, String message);
+    void didFetch(RandomRecipe response, String message, int index);
     void didError(String message);
 }

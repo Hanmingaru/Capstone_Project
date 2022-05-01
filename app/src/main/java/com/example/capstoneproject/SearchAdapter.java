@@ -8,6 +8,7 @@ package com.example.capstoneproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +30,20 @@ import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.globals.RecipeApplication;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder> {
-    Context context;
-    List<RecipeSearch> searchedRecipes;
+    private Context context;
+    private List<RecipeSearch> searchedRecipes;
     private RequestManager manager;
     private int recipeId;
-    private RandomRecipe randomRecipe;
-    private RecipeNutritionResponse nutritionResponse;
+    private RandomRecipe[] randomRecipes;
+    private RecipeNutritionResponse[] nutritionResponses;
+
+    private TextView recipeName;
+    private Button addToSaved;
     public SearchAdapter(Context context, List<RecipeSearch> searchedRecipes, RequestManager manager) {
         this.context = context;
         this.searchedRecipes = searchedRecipes;
@@ -49,26 +54,54 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     public SearchAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.search_list_item, parent, false);
+        randomRecipes = new RandomRecipe[searchedRecipes.size()];
+        nutritionResponses = new RecipeNutritionResponse[searchedRecipes.size()];
         return new SearchAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.MyViewHolder holder, int position) {
-        holder.recipeName.setText(searchedRecipes.get(position).getTitle());
+        int index = holder.getAdapterPosition();
+        recipeId = searchedRecipes.get(holder.getAdapterPosition()).getId();
+        manager.GetRecipeByID(recipeListener, recipeId, index);
+        manager.GetNutritionByID(nutritionListener, recipeId, index);
+
+        recipeName.setText(searchedRecipes.get(position).getTitle());
         Picasso.get().load(searchedRecipes.get(position).getImage()).into(holder.recipeImage);
-        holder.recipeName.setOnClickListener(new View.OnClickListener() {
+
+        recipeName.setClickable(false);
+        addToSaved.setClickable(false);
+
+        recipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
-                intent.putExtra("recipeID", searchedRecipes.get(holder.getAdapterPosition()).getId());
+                Log.i("INDEX", index + "");
+                intent.putExtra("recipeID", searchedRecipes.get(index).getId());
+                intent.putExtra("recipe", randomRecipes[index]);
+                intent.putExtra("nutrition", nutritionResponses[index]);
                 context.startActivity(intent);
             }
         });
-        holder.addToSaved.setOnClickListener(new View.OnClickListener() {
+        addToSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recipeId = searchedRecipes.get(holder.getAdapterPosition()).getId();
-                manager.GetRecipeByID(recipeListener, recipeId);
+                Recipe recipe = new Recipe(randomRecipes[index], nutritionResponses[index]);
+                // Get Recipe Database Access Object
+                final RecipeDao recipeDao = ((RecipeApplication) context.getApplicationContext())
+                        .getRecipeDB().recipeDao();
+
+                if (recipeDao.findByRecipeID(recipeId) != null ) {
+                    Toast.makeText(context, "Recipe already added", Toast.LENGTH_SHORT).show();
+                } else {
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            recipeDao.insertRecipe(recipe);
+                        }
+                    });
+                    Toast.makeText(context, "Recipe added to saved", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -80,9 +113,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView recipeName;
         ImageView recipeImage;
-        Button addToSaved;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipeNameList2);
@@ -92,9 +123,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     }
     private RecipeByIdListener recipeListener = new RecipeByIdListener() {
         @Override
-        public void didFetch(RandomRecipe response, String message) {
-            randomRecipe = response;
-            manager.GetNutritionByID(nutritionListener, recipeId);
+        public void didFetch(RandomRecipe response, String message, int index) {
+            randomRecipes[index] = response;
+            if (nutritionResponses[index] != null) {
+                recipeName.setClickable(true);
+                addToSaved.setClickable(true);
+            }
         }
 
         @Override
@@ -105,24 +139,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     private NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
         @Override
-        public void didFetch(RecipeNutritionResponse response, String message) {
-            nutritionResponse = response;
-            Recipe recipe = new Recipe(randomRecipe, nutritionResponse);
-
-            // Get Recipe Database Access Object
-            final RecipeDao recipeDao = ((RecipeApplication) context.getApplicationContext())
-                    .getRecipeDB().recipeDao();
-
-            if (recipeDao.findByRecipeID(recipeId) != null ) {
-                Toast.makeText(context, "Recipe already added", Toast.LENGTH_SHORT).show();
-            } else {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        recipeDao.insertRecipe(recipe);
-                    }
-                });
-                Toast.makeText(context, "Recipe added to saved", Toast.LENGTH_SHORT).show();
+        public void didFetch(RecipeNutritionResponse response, String message, int index) {
+            nutritionResponses[index] = response;
+            if (randomRecipes[index] != null) {
+                recipeName.setClickable(true);
+                addToSaved.setClickable(true);
             }
         }
 

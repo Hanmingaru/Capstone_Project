@@ -66,6 +66,8 @@ public class DeckAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
                 intent.putExtra("recipeID", recipeData.get(0).getId());
+                intent.putExtra("recipe", recipeData.get(0));
+                intent.putExtra("nutrition", macros);
                 context.startActivity(intent);
             }
         });

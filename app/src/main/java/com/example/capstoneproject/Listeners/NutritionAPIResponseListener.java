@@ -11,6 +11,6 @@ import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import java.util.ArrayList;
 
 public interface NutritionAPIResponseListener {
-    void didFetch(RecipeNutritionResponse response, String message);
+    void didFetch(RecipeNutritionResponse response, String message, int index);
     void didError(String message);
 }

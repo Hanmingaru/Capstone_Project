@@ -48,6 +48,8 @@ public class RecipeInfoActivity extends AppCompatActivity {
     private ArrayList<String> titles;
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
+    private RandomRecipe recipe;
+    private RecipeNutritionResponse nutrition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +63,14 @@ public class RecipeInfoActivity extends AppCompatActivity {
         title = findViewById(R.id.recipeInfoTitle);
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), getLifecycle());
         recipeID = getIntent().getIntExtra("recipeID", 0);
+        recipe = getIntent().getParcelableExtra("recipe");
+        nutrition = getIntent().getParcelableExtra("nutrition");
         final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().recipeDao();
         if (recipeDao.findByRecipeID(recipeID) != null) {
-            setViews(recipeDao.findByRecipeID(recipeID));
+            setSavedView(recipeDao.findByRecipeID(recipeID));
         } else {
-            viewPageAdapter.addFragment(RecipeDetailFragment.newInstance("", "", "", "", "","",""), "Details");
-            viewPageAdapter.addFragment(IngredientsFragment.newInstance(""), "Ingredients");
-            viewPageAdapter.addFragment(InstructionFragment.newInstance(""), "Instructions");
-            manager = new RequestManager(this);
-            manager.GetRecipeByID(recipeListener, recipeID);
+            setApiView(recipe, nutrition);
         }
 
         viewPager.setAdapter(viewPageAdapter);
@@ -86,7 +86,7 @@ public class RecipeInfoActivity extends AppCompatActivity {
         ).attach();
     }
 
-    private void setViews(Recipe recipe) {
+    private void setSavedView(Recipe recipe) {
         Picasso.get().load(recipe.getImageUrl()).into(recipeImage);
         title.setText(recipe.getName());
         link = "<a href=" + recipe.getWebsiteLink() + "> Website Link </a>";
@@ -102,50 +102,21 @@ public class RecipeInfoActivity extends AppCompatActivity {
         viewPageAdapter.addFragment(IngredientsFragment.newInstance(ingredients), "Ingredients");
         viewPageAdapter.addFragment(InstructionFragment.newInstance(instructions), "Instructions");
     }
-
-    private RecipeByIdListener recipeListener = new RecipeByIdListener() {
-        @Override
-        public void didFetch(RandomRecipe response, String message) {
-            Picasso.get().load(response.getImage()).into(recipeImage);
-            title.setText(response.getTitle());
-            String text = "<a href=" + response.getSourceUrl() + "> Website Link </a>";
-            link = "<a href=" + response.getSourceUrl() + "> Website Link </a>";
-            price = String.format("$%.2f",response.getPricePerServing()/100.0);
-            timeInMinutes = response.getReadyInMinutes() + "";
-            ingredients = response.ingredientsToString();
-            instructions = response.instructionsToString();
-            fragments.add(0, InstructionFragment.newInstance(instructions));
-            fragments.add(0, IngredientsFragment.newInstance(ingredients));
-            titles.add(0, "Instructions");
-            titles.add(0, "Ingredients");
-            manager.GetNutritionByID(nutritionListener, recipeID);
-        }
-
-        @Override
-        public void didError(String message) {
-            Toast.makeText(RecipeInfoActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private NutritionAPIResponseListener nutritionListener = new NutritionAPIResponseListener() {
-        @Override
-        public void didFetch(RecipeNutritionResponse response, String message) {
-            Log.i("IDTAG", link + " " + price );
-            calories = response.getCalories().substring(0, response.getCalories().length()-1);
-            proteins = response.getProtein();
-            fats = response.getFat();
-            carbs = response.getCarbs();
-            fragments.add(0, RecipeDetailFragment.newInstance(link, price, calories, proteins, fats,carbs,timeInMinutes));
-            titles.add(0, "Details");
-            viewPageAdapter.setFragments(fragments, titles);
-            viewPager.setAdapter(viewPageAdapter);
-        }
-
-        @Override
-        public void didError(String message) {
-            Toast.makeText(RecipeInfoActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-    };
-
+    private void setApiView(RandomRecipe recipe, RecipeNutritionResponse nutrition) {
+        Picasso.get().load(recipe.getImage()).into(recipeImage);
+        title.setText(recipe.getTitle());
+        link = "<a href=" + recipe.getSourceUrl() + "> Website Link </a>";
+        price = String.format("$%.2f",recipe.getPricePerServing()/100.0);
+        calories = nutrition.getCalories().substring(0, nutrition.getCalories().length()-1);
+        proteins = nutrition.getProtein();
+        fats = nutrition.getFat();
+        carbs = nutrition.getCarbs();
+        timeInMinutes = recipe.getReadyInMinutes() + "";
+        ingredients = recipe.ingredientsToString();
+        instructions = recipe.instructionsToString();
+        viewPageAdapter.addFragment(RecipeDetailFragment.newInstance(link, price, calories, proteins, fats,carbs,timeInMinutes), "Details");
+        viewPageAdapter.addFragment(IngredientsFragment.newInstance(ingredients), "Ingredients");
+        viewPageAdapter.addFragment(InstructionFragment.newInstance(instructions), "Instructions");
+    }
 
 }

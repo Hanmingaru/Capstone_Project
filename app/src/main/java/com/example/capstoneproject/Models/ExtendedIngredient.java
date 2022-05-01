@@ -1,8 +1,11 @@
 package com.example.capstoneproject.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class ExtendedIngredient {
+public class ExtendedIngredient implements Parcelable {
     public int id;
     public String aisle;
     public String image;
@@ -16,7 +19,34 @@ public class ExtendedIngredient {
     public String unit;
     public List<String> meta;
     public List<String> metaInformation;
-    public Measures measures;
+
+    protected ExtendedIngredient(Parcel in) {
+        id = in.readInt();
+        aisle = in.readString();
+        image = in.readString();
+        consistency = in.readString();
+        name = in.readString();
+        nameClean = in.readString();
+        original = in.readString();
+        originalString = in.readString();
+        originalName = in.readString();
+        amount = in.readDouble();
+        unit = in.readString();
+        meta = in.createStringArrayList();
+        metaInformation = in.createStringArrayList();
+    }
+
+    public static final Creator<ExtendedIngredient> CREATOR = new Creator<ExtendedIngredient>() {
+        @Override
+        public ExtendedIngredient createFromParcel(Parcel in) {
+            return new ExtendedIngredient(in);
+        }
+
+        @Override
+        public ExtendedIngredient[] newArray(int size) {
+            return new ExtendedIngredient[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -70,7 +100,26 @@ public class ExtendedIngredient {
         return metaInformation;
     }
 
-    public Measures getMeasures() {
-        return measures;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(aisle);
+        parcel.writeString(image);
+        parcel.writeString(consistency);
+        parcel.writeString(name);
+        parcel.writeString(nameClean);
+        parcel.writeString(original);
+        parcel.writeString(originalString);
+        parcel.writeString(originalName);
+        parcel.writeDouble(amount);
+        parcel.writeString(unit);
+        parcel.writeStringList(meta);
+        parcel.writeStringList(metaInformation);
     }
 }

@@ -53,7 +53,7 @@ public class RequestManager {
         });
     }
 
-    public void GetNutritionByID(NutritionAPIResponseListener listener, int id){
+    public void GetNutritionByID(NutritionAPIResponseListener listener, int id, int index){
         CallRecipeNutrition callRecipeNutrition = retrofit.create(CallRecipeNutrition.class);
         Call<RecipeNutritionResponse> call = callRecipeNutrition.callRecipeNutrition(context.getString(R.string.api_key), id);
         call.enqueue((new Callback<RecipeNutritionResponse>() {
@@ -63,7 +63,7 @@ public class RequestManager {
                      listener.didError(response.message());
                      return;
                 }
-                listener.didFetch(response.body(), response.message());
+                listener.didFetch(response.body(), response.message(), index);
             }
             @Override
             public void onFailure(Call<RecipeNutritionResponse> call, Throwable t) {
@@ -91,7 +91,7 @@ public class RequestManager {
         }));
     }
 
-    public void GetRecipeByID(RecipeByIdListener listener, int id){
+    public void GetRecipeByID(RecipeByIdListener listener, int id, int index){
         CallRecipeByID callRecipeByID = retrofit.create(CallRecipeByID.class);
         Call<RandomRecipe> call = callRecipeByID.callRecipeByID(context.getString(R.string.api_key),  id );
         call.enqueue(new Callback<RandomRecipe>() {
@@ -101,7 +101,7 @@ public class RequestManager {
                     listener.didError(response.message());
                     return;
                 }
-                listener.didFetch(response.body(), response.message());
+                listener.didFetch(response.body(), response.message(), index);
             }
 
             @Override
