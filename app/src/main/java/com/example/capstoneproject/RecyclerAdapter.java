@@ -7,7 +7,6 @@ package com.example.capstoneproject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 context.startActivity(intent);
             }
         });
+
+        // Set visibility of favorite icon based off recipes favorite flag
+        holder.favoriteIcon.setVisibility(savedRecipes.get(position).getFavorite() ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -98,6 +100,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         // If in favorites tab, remove from favorites list
         if (favoritesSelected) {
             savedRecipes.remove(position);
+            notifyItemRemoved(position);
         }
     }
 
@@ -136,11 +139,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 // Remove "*favorites" flag from string
                 String filterPattern = charSequence.toString().replace("*favorites", "")
                         .toLowerCase().trim();
-                System.out.println(filterPattern);
-                for (Recipe recipe: savedRecipes) {
-                    if (recipe.getName().toLowerCase().contains(filterPattern)
-                        && recipe.getFavorite()) {
-                        filteredList.add(recipe);
+
+                // Check if charSequence is blank
+                if (filterPattern.length() == 0) {
+                    filteredList.addAll(savedRecipesFull);
+                } else {
+                    for (Recipe recipe: savedRecipes) {
+                        if (recipe.getName().toLowerCase().contains(filterPattern)
+                                && recipe.getFavorite()) {
+                            filteredList.add(recipe);
+                        }
                     }
                 }
 
@@ -171,11 +179,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         TextView recipeName;
         ImageView recipeImage;
+        ImageView favoriteIcon;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipeNameList);
             recipeImage = itemView.findViewById(R.id.recipeImageList);
+            favoriteIcon = itemView.findViewById(R.id.favoriteIcon);
         }
     }
 }
