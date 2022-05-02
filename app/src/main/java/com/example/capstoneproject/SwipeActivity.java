@@ -47,7 +47,7 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
-        macros = new RecipeNutritionResponse();
+        macros = null;
         randomRecipes = new ArrayList<>();
         manager = new RequestManager(this);
         cardStack = findViewById(R.id.swipe_deck);
@@ -193,9 +193,17 @@ public class SwipeActivity extends AppCompatActivity {
     private final RandomAPIResponseListener randomListener = new RandomAPIResponseListener() {
         @Override
         public void didFetch(ArrayList<RandomRecipe> responses, String message) {
-            randomRecipes = responses;
-            firstRecipe = responses.get(0);
-            manager.GetNutritionByID(nutritionListener, responses.get(0).getId(), 0);
+            if (responses.size() > 0) {
+                randomRecipes = responses;
+                firstRecipe = responses.get(0);
+                manager.GetNutritionByID(nutritionListener, responses.get(0).getId(), 0);
+            } else {
+                if(randomRecipes.size() > 0 && macros != null) {
+                    final DeckAdapter adapter = new DeckAdapter(randomRecipes, macros, SwipeActivity.this);
+                    cardStack.setAdapter(adapter);
+                }
+                Toast.makeText(SwipeActivity.this, "No recipe found", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
