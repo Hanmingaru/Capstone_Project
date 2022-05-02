@@ -52,21 +52,20 @@ public class NavBarFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_nav_bar, container, false);
         bottomNavigationView = myView.findViewById(R.id.bottom_nav_bar);
-        if(getActivity().getClass().getSimpleName().equals("SwipeActivity"))
-            bottomNavigationView.setSelectedItemId(R.id.swipe);
-        if(getActivity().getClass().getSimpleName().equals("SavedActivity"))
-            bottomNavigationView.setSelectedItemId(R.id.recipe);
-        if(getActivity().getClass().getSimpleName().equals("GroceryActivity"))
-            bottomNavigationView.setSelectedItemId(R.id.grocery);
-        if(getActivity().getClass().getSimpleName().equals("SearchActivity"))
-            bottomNavigationView.setSelectedItemId(R.id.search);
 
+        if (getActivity().getClass().getSimpleName().equals("SwipeActivity"))
+            bottomNavigationView.setSelectedItemId(R.id.swipe);
+        if (getActivity().getClass().getSimpleName().equals("SavedActivity"))
+            bottomNavigationView.setSelectedItemId(R.id.recipe);
+        if (getActivity().getClass().getSimpleName().equals("SearchActivity"))
+            bottomNavigationView.setSelectedItemId(R.id.search);
+        if (getActivity().getClass().getSimpleName().equals("GroceryActivity"))
+            bottomNavigationView.setSelectedItemId(R.id.grocery);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
