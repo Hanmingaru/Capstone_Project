@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
@@ -30,9 +31,12 @@ import java.util.List;
 public class SavedActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    TextView emptyView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
     private BottomNavigationView bottomNavigationView;
+    TextView fillerAll;
+    TextView fillerSaved;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +90,16 @@ public class SavedActivity extends AppCompatActivity {
                 .getRecipeDB().recipeDao();
 
         savedRecipes = recipeDao.getAll();
-
-
-
+        fillerAll = (TextView) findViewById(R.id.filler);
+        fillerSaved = (TextView) findViewById(R.id.filler2);
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
+        fillerSaved.setVisibility(View.INVISIBLE);
+        if (savedRecipes.size() != 0) {
+            fillerAll.setVisibility(View.INVISIBLE);
+        }
+
+
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, savedRecipes, recipeDao);
         this.recyclerAdapter = recyclerAdapter;
         recyclerView.setAdapter(recyclerAdapter);
@@ -110,6 +119,13 @@ public class SavedActivity extends AppCompatActivity {
                 recyclerAdapter.setFavoritesSelected(false);
                 // Pass "all" through to specify filter type
                 recyclerAdapter.getFilter().filter("all");
+                fillerSaved.setVisibility(View.INVISIBLE);
+                if (recyclerAdapter.getItemCount() == 0) {
+                    fillerAll.setVisibility(View.VISIBLE);
+                }
+                else {
+                    fillerAll.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -120,6 +136,13 @@ public class SavedActivity extends AppCompatActivity {
                 recyclerAdapter.setFavoritesSelected(true);
                 // Pass "favorites" through to specify filter type
                 recyclerAdapter.getFilter().filter("favorites");
+                fillerAll.setVisibility(View.INVISIBLE);
+                if (recyclerAdapter.getItemCount() == 0) {
+                    fillerSaved.setVisibility(View.VISIBLE);
+                }
+                else {
+                    fillerSaved.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }

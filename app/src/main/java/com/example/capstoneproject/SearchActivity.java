@@ -17,7 +17,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
 import com.example.capstoneproject.Models.RandomRecipe;
@@ -27,6 +29,8 @@ import com.example.capstoneproject.adapters.SearchAdapter;
 import com.example.capstoneproject.fragments.NavBarFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +119,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
     private final RecipeSearchResponseListener recipeSearchResponseListener = new RecipeSearchResponseListener() {
         @Override
         public void didFetch(ArrayList<RecipeSearch> responses, String message) {
