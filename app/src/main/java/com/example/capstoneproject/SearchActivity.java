@@ -12,12 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.capstoneproject.Listeners.RecipeSearchResponseListener;
 import com.example.capstoneproject.Models.RecipeSearch;
 import com.example.capstoneproject.adapters.SearchAdapter;
 import com.example.capstoneproject.fragments.NavBarFragment;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
