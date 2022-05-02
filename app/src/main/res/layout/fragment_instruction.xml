@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        tools:context=".IngredientsFragment" >
+        tools:context=".fragments.IngredientsFragment" >
 
         <!-- TODO: Update blank fragment layout -->
 

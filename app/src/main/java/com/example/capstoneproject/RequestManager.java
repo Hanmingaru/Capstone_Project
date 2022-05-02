@@ -1,6 +1,7 @@
 package com.example.capstoneproject;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
@@ -34,8 +35,9 @@ public class RequestManager {
     }
 
     public void GetRandomRecipes(RandomAPIResponseListener listener, List<String> tags){
+        String tagQuery = TextUtils.join(",", tags);
         CallRandomRecipe callRandomRecipe = retrofit.create(CallRandomRecipe.class);
-        Call<RandomRecipeResponse> call = callRandomRecipe.callRandomRecipe(context.getString(R.string.api_key), "1", tags );
+        Call<RandomRecipeResponse> call = callRandomRecipe.callRandomRecipe(context.getString(R.string.api_key), "1", tagQuery );
         call.enqueue(new Callback<RandomRecipeResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeResponse> call, Response<RandomRecipeResponse> response) {
@@ -53,7 +55,7 @@ public class RequestManager {
         });
     }
 
-    public void GetNutritionByID(NutritionAPIResponseListener listener, int id){
+    public void GetNutritionByID(NutritionAPIResponseListener listener, int id, int index){
         CallRecipeNutrition callRecipeNutrition = retrofit.create(CallRecipeNutrition.class);
         Call<RecipeNutritionResponse> call = callRecipeNutrition.callRecipeNutrition(context.getString(R.string.api_key), id);
         call.enqueue((new Callback<RecipeNutritionResponse>() {
@@ -63,7 +65,7 @@ public class RequestManager {
                      listener.didError(response.message());
                      return;
                 }
-                listener.didFetch(response.body(), response.message());
+                listener.didFetch(response.body(), response.message(), index);
             }
             @Override
             public void onFailure(Call<RecipeNutritionResponse> call, Throwable t) {
@@ -91,7 +93,7 @@ public class RequestManager {
         }));
     }
 
-    public void GetRecipeByID(RecipeByIdListener listener, int id){
+    public void GetRecipeByID(RecipeByIdListener listener, int id, int index){
         CallRecipeByID callRecipeByID = retrofit.create(CallRecipeByID.class);
         Call<RandomRecipe> call = callRecipeByID.callRecipeByID(context.getString(R.string.api_key),  id );
         call.enqueue(new Callback<RandomRecipe>() {
@@ -101,7 +103,7 @@ public class RequestManager {
                     listener.didError(response.message());
                     return;
                 }
-                listener.didFetch(response.body(), response.message());
+                listener.didFetch(response.body(), response.message(), index);
             }
 
             @Override
@@ -116,7 +118,7 @@ public class RequestManager {
         Call<RandomRecipeResponse> callRandomRecipe(
                 @Header("X-RapidAPI-Key") String api_key,
                 @Query("number") String number,
-                @Query("tags") List<String> tags
+                @Query("tags") String tags
         );
     }
 

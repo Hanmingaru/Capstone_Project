@@ -1,11 +1,12 @@
 package com.example.capstoneproject.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RandomRecipeResponse {
-    List<RandomRecipe> recipes;
+    ArrayList<RandomRecipe> recipes;
 
-    public List<RandomRecipe> getRecipes() {
+    public ArrayList<RandomRecipe> getRecipes() {
         return recipes;
     }
 }

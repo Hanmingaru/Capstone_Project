@@ -12,26 +12,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CapstoneProject">
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RecipeInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SavedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GroceryActivity"
-            android:exported="false" />
+        android:theme="@style/CapstoneProject">
         <activity
             android:name=".SwipeActivity"
-            android:exported="true"
-            android:theme="@style/SplashScreen">
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RecipeInfoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SavedActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".GroceryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

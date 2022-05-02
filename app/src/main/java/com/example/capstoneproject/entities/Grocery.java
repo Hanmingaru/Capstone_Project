@@ -44,6 +44,11 @@ public class Grocery {
     private Integer id;
 
     // id of the recipe this ingredient belongs to
+    @ColumnInfo(name = "recipeID")
+    @NotNull
+    private Integer recipeID;
+
+    // name of the recipe this ingredient belongs to
     @ColumnInfo(name = "recipeName")
     @NotNull
     private String recipeName;
@@ -71,10 +76,12 @@ public class Grocery {
     */
 
     public Grocery() {
+        found = null;
     }
 
     /**
      *
+     * @param recipeID   ID of the recipe this grocery item belongs to
      * @param recipeName Name of the recipe this grocery item belongs to
      * @param name       Name of the ingredient
      * @param found      Boolean to update status of ingredient (used to keep
@@ -82,8 +89,9 @@ public class Grocery {
      * @param aisle      Name of the isle this ingredient is found in
      */
     @Ignore
-    public Grocery(@NotNull String recipeName, @NotNull String name, @NotNull Boolean found,
+    public Grocery(@NotNull Integer recipeID, @NotNull String recipeName, @NotNull String name, @NotNull Boolean found,
                    @NotNull String aisle) {
+        this.recipeID = recipeID;
         this.recipeName = recipeName;
         this.name = name;
         this.found = found;
@@ -107,15 +115,6 @@ public class Grocery {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @NotNull
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setRecipeName(@NotNull String recipeName) {
-        this.recipeName = recipeName;
     }
 
     @NotNull
@@ -143,6 +142,24 @@ public class Grocery {
 
     public void setAisle(@NotNull String aisle) {
         this.aisle = aisle;
+    }
+
+    @NotNull
+    public Integer getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(@NotNull Integer recipeID) {
+        this.recipeID = recipeID;
+    }
+
+    @NotNull
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(@NotNull String recipeName) {
+        this.recipeName = recipeName;
     }
 
     /*

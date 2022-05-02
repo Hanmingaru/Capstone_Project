@@ -29,7 +29,11 @@ public interface GroceryDao {
     @Query("SELECT * FROM grocery")
     List<Grocery> getAll();
 
-    // Return all Grocery items with name of recipeName
+    // Return all Grocery items with id recipeID
+    @Query("SELECT * FROM grocery WHERE recipeID == :recipeID")
+    List<Grocery> findAllByRecipeID(Integer recipeID);
+
+    // Return all Grocery items with the recipe name "recipeName"
     @Query("SELECT * FROM grocery WHERE recipeName LIKE :recipeName")
     List<Grocery> findAllByRecipeName(String recipeName);
 
@@ -78,6 +82,15 @@ public interface GroceryDao {
 
     @Delete
     void delete(Grocery grocery);
+
+    @Query("DELETE FROM grocery WHERE name == :name")
+    void deleteByName(String name);
+
+    @Query("DELETE FROM grocery WHERE recipeName LIKE :recipeName")
+    void deleteAllByRecipeName(String recipeName);
+
+    @Query("DELETE FROM grocery WHERE recipeID == :recipeID")
+    void deleteAllByRecipeID(Integer recipeID);
 
     // Delete all items from the grocery database
     @Query("DELETE FROM grocery")

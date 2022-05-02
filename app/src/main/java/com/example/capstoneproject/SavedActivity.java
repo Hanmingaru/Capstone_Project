@@ -1,56 +1,108 @@
 package com.example.capstoneproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.content.Intent;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
-import android.content.Intent;
 import android.widget.SearchView;
+import android.widget.TextView;
 
+import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.adapters.RecyclerAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.globals.RecipeApplication;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SavedActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    TextView emptyView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
-
+    private BottomNavigationView bottomNavigationView;
+    TextView fillerAll;
+    TextView fillerSaved;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
-                    .commit();
-        }
+        bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setSelectedItemId(R.id.recipe);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.swipe ) {
+                    Intent intent = new Intent(SavedActivity.this, SwipeActivity.class);
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
 
+                if (item.getItemId() == R.id.recipe) {
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.grocery) {
+                    Intent intent = new Intent(SavedActivity.this, GroceryActivity.class);
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.search) {
+                    Intent intent = new Intent(SavedActivity.this, SearchActivity.class);
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
         // Retrieve list of saved recipes from db
         final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().recipeDao();
 
         savedRecipes = recipeDao.getAll();
-
-
-
+        fillerAll = (TextView) findViewById(R.id.filler);
+        fillerSaved = (TextView) findViewById(R.id.filler2);
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
+        fillerSaved.setVisibility(View.INVISIBLE);
+        if (savedRecipes.size() != 0) {
+            fillerAll.setVisibility(View.INVISIBLE);
+        }
+
+
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, savedRecipes, recipeDao);
         this.recyclerAdapter = recyclerAdapter;
         recyclerView.setAdapter(recyclerAdapter);
@@ -97,10 +149,26 @@ public class SavedActivity extends AppCompatActivity {
                     recyclerAdapter.setFavoritesSelected(false);
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("all");
+                    // Filler text
+                    fillerSaved.setVisibility(View.INVISIBLE);
+                    if (recyclerAdapter.getItemCount() == 0) {
+                        fillerAll.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        fillerAll.setVisibility(View.INVISIBLE);
+                    }
                 } else {
                     recyclerAdapter.setFavoritesSelected(true);
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("favorites");
+                    // Filler text
+                    fillerAll.setVisibility(View.INVISIBLE);
+                    if (recyclerAdapter.getItemCount() == 0) {
+                        fillerSaved.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        fillerSaved.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 
@@ -114,32 +182,6 @@ public class SavedActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    /**
-     * Wrapper class for LinearLayoutManager to prevent IndexOutOfBoundsException bug
-     */
-    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
-        public WrapContentLinearLayoutManager(Context context) {
-            super(context);
-        }
-
-        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
-            super(context, orientation, reverseLayout);
-        }
-
-        public WrapContentLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
-        }
-
-        @Override
-        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-            try {
-                super.onLayoutChildren(recycler, state);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("TAG", "meet a IOOBE in RecyclerView");
-            }
-        }
     }
 
 }

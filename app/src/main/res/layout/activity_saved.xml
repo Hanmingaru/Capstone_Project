@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".SavedActivity">
 
 
@@ -34,7 +35,8 @@
         android:layout_height="0dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search Saved Recipes"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        android:theme="@style/SearchBarStyle"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/savedRecipesTab"
@@ -57,20 +59,51 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <TextView
+        android:id="@+id/filler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="~ You have no saved recipes ~"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
+        app:layout_constraintVertical_bias="0.449" />
+
+    <TextView
+        android:id="@+id/filler2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="~ You have no favorite recipes ~"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
+        app:layout_constraintVertical_bias="0.449" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/navbar_fragment_id"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/navbar_fragment_id"
-        android:name="com.example.capstoneproject.NavBarFragment"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:itemBackground="@color/red"
+        app:itemIconTint="@color/nav_color"
+        app:itemTextColor="@color/nav_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout >

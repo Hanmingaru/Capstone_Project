@@ -1,75 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipedeck="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".SwipeActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        swipedeck:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            app:liftOnScroll="true"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/red"
+            app:menu="@menu/swipe_menu"
+            app:title="TENDER"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/ToolBarTitle"
+            app:titleTextColor="@color/white" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/red"
-                app:titleTextAppearance="@style/ToolBarTitle"
-                app:title="TENDER"
-                app:titleCentered="true"
-                app:titleTextColor="@color/white"
-                app:menu="@menu/swipe_menu"
-                />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/navbar_fragment_id"
-            android:name="com.example.capstoneproject.NavBarFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    <!--on below line we are creating a swipe
-        frame layout for providing a swipe action-->
     <com.daprlabs.cardstack.SwipeFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        >
+        swipedeck:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
+        swipedeck:layout_constraintEnd_toEndOf="parent"
+        swipedeck:layout_constraintStart_toStartOf="parent"
+        swipedeck:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <!--below widget is used for creating a swipe deck-->
         <!--in below widget card spacing is the spacing between cards
-            max visible is the max number of cards which are visible
-            render above is to render the cards
-            rotation degree is the angle of card rotation when card is swiped-->
+                max visible is the max number of cards which are visible
+                render above is to render the cards
+                rotation degree is the angle of card rotation when card is swiped-->
         <com.daprlabs.cardstack.SwipeDeck
             android:id="@+id/swipe_deck"
             android:layout_width="match_parent"
-            android:layout_height="536dp"
-            android:padding="20dp"
-            android:translationY="?attr/actionBarSize"
-            swipedeck:card_spacing="10dp"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
             swipedeck:max_visible="3"
             swipedeck:render_above="true"
             swipedeck:rotation_degrees="15" />
 
     </com.daprlabs.cardstack.SwipeFrameLayout>
 
-</RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:itemBackground="@color/red"
+        app:itemIconTint="@color/nav_color"
+        app:itemTextColor="@color/nav_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

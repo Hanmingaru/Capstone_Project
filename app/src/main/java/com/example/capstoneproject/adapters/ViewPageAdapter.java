@@ -1,9 +1,9 @@
 /*
- * Created by Elliott Rheault on 2022.4.27
+ * Created by Elliott Rheault on 2022.5.1
  * Copyright © 2022 Elliott Rheault. All rights reserved.
  */
 
-package com.example.capstoneproject;
+package com.example.capstoneproject.adapters;
 
 import android.os.Bundle;
 
@@ -42,8 +42,6 @@ public class ViewPageAdapter extends FragmentStateAdapter {
     public String getTitle(int position) {
         return titles.get(position);
     }
-
-    public Fragment getFragment(int position) { return fragments.get(position); }
 
     @Override
     public int getItemCount() {

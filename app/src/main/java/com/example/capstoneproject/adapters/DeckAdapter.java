@@ -1,4 +1,9 @@
-package com.example.capstoneproject;
+/*
+ * Created by Elliott Rheault on 2022.5.1
+ * Copyright © 2022 Elliott Rheault. All rights reserved.
+ */
+
+package com.example.capstoneproject.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
+import com.example.capstoneproject.R;
+import com.example.capstoneproject.RecipeInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -66,6 +73,8 @@ public class DeckAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
                 intent.putExtra("recipeID", recipeData.get(0).getId());
+                intent.putExtra("recipe", recipeData.get(0));
+                intent.putExtra("nutrition", macros);
                 context.startActivity(intent);
             }
         });

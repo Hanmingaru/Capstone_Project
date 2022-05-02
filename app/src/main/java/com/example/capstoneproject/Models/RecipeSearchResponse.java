@@ -7,12 +7,13 @@ package com.example.capstoneproject.Models;
 
 import com.example.capstoneproject.entities.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeSearchResponse {
-    List<RecipeSearch> results;
+    ArrayList<RecipeSearch> results;
 
-    public List<RecipeSearch> getRecipes() {
+    public ArrayList<RecipeSearch> getRecipes() {
         return results;
     }
 }

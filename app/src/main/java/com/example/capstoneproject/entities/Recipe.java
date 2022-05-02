@@ -280,7 +280,6 @@ public class Recipe {
     of the Recipe table in the RecipeDB database.
     ======================================================
     */
-
     public Integer getId() {
         return id;
     }
@@ -433,6 +432,33 @@ public class Recipe {
         this.recipeID = recipeID;
     }
 
+    /**
+     * Getter for Ingredients with deserialization
+     *
+     * @return List<String> of Ingredients
+     */
+    public List<String> getIngredientsList() {
+        return Methods.deserializeList(this.ingredients);
+    }
+
+    /**
+     * Getter for Instructions with deserialization
+     *
+     * @return List<String> of instructions
+     */
+    public List<String> getInstructionsList() {
+        return Methods.deserializeList(this.instructions);
+    }
+
+    /**
+     * Getter for Diets with deserialization
+     *
+     * @return List<String> of Diets
+     */
+    public List<String> getDietsList() {
+        return Methods.deserializeList(this.diets);
+    }
+
     /*
     ================================
     Instance Methods Used Internally
@@ -458,7 +484,7 @@ public class Recipe {
         // Iterate though every element in ingredients
         for (int i = 0; i < ingredientsSize; i++) {
             // Create a new Grocery object for each ingredient
-            groceryList[i] = new Grocery(this.name, ingredients.get(i), false, aisle.get(i));
+            groceryList[i] = new Grocery(this.recipeID, this.name, ingredients.get(i), false, aisle.get(i));
         }
 
         AsyncTask.execute(new Runnable() {
