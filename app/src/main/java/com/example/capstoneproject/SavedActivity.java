@@ -36,7 +36,7 @@ public class SavedActivity extends AppCompatActivity {
     List<Recipe> savedRecipes;
     private BottomNavigationView bottomNavigationView;
     TextView fillerAll;
-    TextView fillerSaved;
+    TextView fillerFav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +93,11 @@ public class SavedActivity extends AppCompatActivity {
                 .getRecipeDB().recipeDao();
 
         savedRecipes = recipeDao.getAll();
-        fillerAll = (TextView) findViewById(R.id.filler);
-        fillerSaved = (TextView) findViewById(R.id.filler2);
+        fillerAll = (TextView) findViewById(R.id.fillerAll);
+        fillerFav = (TextView) findViewById(R.id.fillerFav);
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
-        fillerSaved.setVisibility(View.INVISIBLE);
+        fillerFav.setVisibility(View.INVISIBLE);
         if (savedRecipes.size() != 0) {
             fillerAll.setVisibility(View.INVISIBLE);
         }
@@ -122,7 +122,7 @@ public class SavedActivity extends AppCompatActivity {
                 recyclerAdapter.setFavoritesSelected(false);
                 // Pass "all" through to specify filter type
                 recyclerAdapter.getFilter().filter("all");
-                fillerSaved.setVisibility(View.INVISIBLE);
+                fillerFav.setVisibility(View.INVISIBLE);
                 System.out.println(recyclerAdapter.getItemCount());
                 if (recyclerAdapter.getItemCount() == 0) {
                     fillerAll.setVisibility(View.VISIBLE);
@@ -143,10 +143,10 @@ public class SavedActivity extends AppCompatActivity {
                 fillerAll.setVisibility(View.INVISIBLE);
                 System.out.println(recyclerAdapter.getItemCount());
                 if (recyclerAdapter.getItemCount() == 0) {
-                    fillerSaved.setVisibility(View.VISIBLE);
+                    fillerFav.setVisibility(View.VISIBLE);
                 }
                 else {
-                    fillerSaved.setVisibility(View.INVISIBLE);
+                    fillerFav.setVisibility(View.INVISIBLE);
                 }
             }
         });

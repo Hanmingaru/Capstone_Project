@@ -8,25 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.adapters.GroceryAdapter;
 import com.example.capstoneproject.daos.GroceryDao;
 import com.example.capstoneproject.entities.Grocery;
-import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroceryActivity extends AppCompatActivity {
@@ -35,6 +32,7 @@ public class GroceryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private BottomNavigationView bottomNavigationView;
+    private TextView filler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +87,28 @@ public class GroceryActivity extends AppCompatActivity {
         final GroceryDao groceryDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().groceryDao();
         groceries = groceryDao.getAll();
-        if (groceries.size() > 0)
+        filler = (TextView) findViewById(R.id.grocery_filler);
+
+        if (groceries.size() > 0) {
+            filler.setVisibility(View.INVISIBLE);
             Log.i("FROM GROCERIES", groceries.size() + "");
+        }
         recyclerView = findViewById(R.id.grocery_recycler_view);
 
         adapter = new GroceryAdapter(GroceryActivity.this, groceries, groceryDao);
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent m) {
+                System.out.println(groceries.size());
+                if (groceries.size() == 0) {
+                    filler.setVisibility(View.VISIBLE);
+                }
+                else {
+                    filler.setVisibility(View.INVISIBLE);
+                }
+                System.out.println(filler.getVisibility());
+                return false;
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MaterialToolbar appBar = findViewById(R.id.topAppBar);
@@ -104,6 +119,7 @@ public class GroceryActivity extends AppCompatActivity {
                     groceryDao.deleteAll();
                     groceries.clear();
                     adapter.notifyDataSetChanged();
+                    filler.setVisibility(View.VISIBLE);
                     return true;
                 }
                 return false;

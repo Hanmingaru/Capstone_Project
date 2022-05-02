@@ -68,7 +68,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/filler"
+        android:id="@+id/fillerAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="~ You have no saved recipes ~"
@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.449" />
 
     <TextView
-        android:id="@+id/filler2"
+        android:id="@+id/fillerFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="~ You have no favorite recipes ~"
