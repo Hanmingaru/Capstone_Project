@@ -123,6 +123,7 @@ public class SavedActivity extends AppCompatActivity {
                 // Pass "all" through to specify filter type
                 recyclerAdapter.getFilter().filter("all");
                 fillerSaved.setVisibility(View.INVISIBLE);
+                System.out.println(recyclerAdapter.getItemCount());
                 if (recyclerAdapter.getItemCount() == 0) {
                     fillerAll.setVisibility(View.VISIBLE);
                 }
@@ -140,6 +141,7 @@ public class SavedActivity extends AppCompatActivity {
                 // Pass "favorites" through to specify filter type
                 recyclerAdapter.getFilter().filter("favorites");
                 fillerAll.setVisibility(View.INVISIBLE);
+                System.out.println(recyclerAdapter.getItemCount());
                 if (recyclerAdapter.getItemCount() == 0) {
                     fillerSaved.setVisibility(View.VISIBLE);
                 }
