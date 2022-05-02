@@ -96,20 +96,36 @@ public class GroceryActivity extends AppCompatActivity {
             filler.setVisibility(View.INVISIBLE);
             Log.i("FROM GROCERIES", groceries.size() + "");
         }
+        else {
+            filler.setVisibility(View.VISIBLE);
+        }
         recyclerView = findViewById(R.id.grocery_recycler_view);
 
         adapter = new GroceryAdapter(GroceryActivity.this, groceries, groceryDao);
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent m) {
+//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent m) {
+//                System.out.println(groceries.size());
+//                if (groceries.size() <= 1) {
+//                    filler.setVisibility(View.VISIBLE);
+//                }
+//                else {
+//                    filler.setVisibility(View.INVISIBLE);
+//                }
+//                System.out.println(filler.getVisibility());
+//                return false;
+//            }
+//        });
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 System.out.println(groceries.size());
-                if (groceries.size() == 0) {
+                System.out.println("Hello");
+                if (groceries.size() <= 1) {
                     filler.setVisibility(View.VISIBLE);
                 }
                 else {
                     filler.setVisibility(View.INVISIBLE);
                 }
-                System.out.println(filler.getVisibility());
-                return false;
             }
         });
         recyclerView.setAdapter(adapter);

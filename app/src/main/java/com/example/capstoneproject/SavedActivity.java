@@ -36,7 +36,7 @@ public class SavedActivity extends AppCompatActivity {
     List<Recipe> savedRecipes;
     private BottomNavigationView bottomNavigationView;
     TextView fillerAll;
-    TextView fillerFav;
+//    TextView fillerFav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +93,12 @@ public class SavedActivity extends AppCompatActivity {
                 .getRecipeDB().recipeDao();
 
         savedRecipes = recipeDao.getAll();
-        fillerAll = (TextView) findViewById(R.id.fillerAll);
-        fillerFav = (TextView) findViewById(R.id.fillerFav);
+        fillerAll = (TextView) findViewById(R.id.fillerSaved);
+//        fillerFav = (TextView) findViewById(R.id.fillerFav);
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
-        fillerFav.setVisibility(View.INVISIBLE);
+//        fillerFav.setVisibility(View.INVISIBLE);
+        fillerAll.setText("~ You have no saved recipes ~");
         if (savedRecipes.size() != 0) {
             fillerAll.setVisibility(View.INVISIBLE);
         }
@@ -149,25 +150,31 @@ public class SavedActivity extends AppCompatActivity {
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("all");
                     // Filler text
-                    fillerFav.setVisibility(View.INVISIBLE);
-                    if (recyclerAdapter.getItemCount() == 0) {
+//                    fillerFav.setVisibility(View.INVISIBLE);
+//                    System.out.println(recyclerAdapter.getItemCount());
+//                    System.out.println(recyclerAdapter.getContext());
+                    fillerAll.setText("~ You have no saved recipes ~");
+//                    if (recyclerAdapter.getItemCount() == 0) {
                         fillerAll.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        fillerAll.setVisibility(View.INVISIBLE);
-                    }
+//                    }
+//                    else {
+//                        fillerAll.setVisibility(View.INVISIBLE);
+//                    }
                 } else {
                     recyclerAdapter.setFavoritesSelected(true);
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("favorites");
                     // Filler text
-                    fillerAll.setVisibility(View.INVISIBLE);
-                    if (recyclerAdapter.getItemCount() == 0) {
-                        fillerFav.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        fillerFav.setVisibility(View.INVISIBLE);
-                    }
+//                    fillerAll.setVisibility(View.INVISIBLE);
+//                    System.out.println(recyclerAdapter.getItemCount());
+//                    System.out.println(recyclerAdapter.getContext());
+                    fillerAll.setText("~ You have no favorite recipes ~");
+//                    if (recyclerAdapter.getItemCount() == 0) {
+                        fillerAll.setVisibility(View.VISIBLE);
+//                    }
+//                    else {
+//                        fillerAll.setVisibility(View.INVISIBLE);
+//                    }
                 }
             }
 

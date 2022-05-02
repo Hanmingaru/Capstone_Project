@@ -61,7 +61,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
-        android:id="@+id/fillerAll"
+        android:id="@+id/fillerSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="~ You have no saved recipes ~"
@@ -73,18 +73,18 @@
         app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
         app:layout_constraintVertical_bias="0.449" />
 
-    <TextView
-        android:id="@+id/fillerFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="~ You have no favorite recipes ~"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
-        app:layout_constraintVertical_bias="0.449" />
+<!--    <TextView-->
+<!--        android:id="@+id/fillerFav"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="~ You have no favorite recipes ~"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"-->
+<!--        app:layout_constraintVertical_bias="0.449" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
