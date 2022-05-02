@@ -59,6 +59,10 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.MyViewHo
         });
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     private void delete(int index) {
         groceryDao.deleteByName(groceries.get(index).getName());
         groceries.remove(index);

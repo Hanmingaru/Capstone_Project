@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red"
-            app:menu="@menu/saved_menu"
             app:title="TENDER"
             app:titleCentered="true"
             app:titleTextAppearance="@style/ToolBarTitle"
@@ -35,37 +34,31 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:iconifiedByDefault="false"
-        android:queryHint="Recipe Name"
+        android:queryHint="Search Saved Recipes"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:theme="@style/SearchBarStyle"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:id="@+id/filterLinearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/savedRecipesTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        style="@style/TabStyle"
+        android:theme="@style/TabTheme">
 
-        <Button
-            android:id="@+id/allFilter"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
-            android:text="All"
-            android:textColor="@color/black" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All" />
 
-        <Button
-            android:id="@+id/favoritesFilter"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:text="Favorites"
-            android:textColor="@color/black" />
-    </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorites" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <TextView
         android:id="@+id/fillerAll"
@@ -77,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
         app:layout_constraintVertical_bias="0.449" />
 
     <TextView
@@ -90,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab"
         app:layout_constraintVertical_bias="0.449" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -100,8 +93,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterLinearLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/savedRecipesTab" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

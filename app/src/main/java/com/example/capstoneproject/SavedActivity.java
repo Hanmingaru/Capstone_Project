@@ -6,26 +6,26 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.example.capstoneproject.Models.RandomRecipe;
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.adapters.RecyclerAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
-import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
@@ -113,44 +113,11 @@ public class SavedActivity extends AppCompatActivity {
 
         // Setup SearchView
         initSearchWidgets();
-
-        // Create onClickListener for all button
-        Button allButton = (Button) findViewById(R.id.allFilter);
-        allButton.setBackgroundColor(getResources().getColor(R.color.red));
-        allButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                recyclerAdapter.setFavoritesSelected(false);
-                // Pass "all" through to specify filter type
-                recyclerAdapter.getFilter().filter("all");
-                fillerFav.setVisibility(View.INVISIBLE);
-                System.out.println(recyclerAdapter.getItemCount());
-                if (recyclerAdapter.getItemCount() == 0) {
-                    fillerAll.setVisibility(View.VISIBLE);
-                }
-                else {
-                    fillerAll.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        // Create onClickListener for favorites button
-        Button favoritesButton = (Button) findViewById(R.id.favoritesFilter);
-        favoritesButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                recyclerAdapter.setFavoritesSelected(true);
-                // Pass "favorites" through to specify filter type
-                recyclerAdapter.getFilter().filter("favorites");
-                fillerAll.setVisibility(View.INVISIBLE);
-                System.out.println(recyclerAdapter.getItemCount());
-                if (recyclerAdapter.getItemCount() == 0) {
-                    fillerFav.setVisibility(View.VISIBLE);
-                }
-                else {
-                    fillerFav.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+        // Setup tab layout
+        setupTabLayout();
     }
+
+
 
     private void initSearchWidgets() {
         SearchView searchView = findViewById(R.id.searchView);
@@ -171,6 +138,49 @@ public class SavedActivity extends AppCompatActivity {
         });
     }
 
+    private void setupTabLayout() {
+        TabLayout tabLayout = findViewById(R.id.savedRecipesTab);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // 0 for "All" tab, and 1 or "Favorites" tab selected
+                if (tab.getPosition() == 0) {
+                    recyclerAdapter.setFavoritesSelected(false);
+//                  // Pass "all" through to specify filter type
+                    recyclerAdapter.getFilter().filter("all");
+                    // Filler text
+                    fillerFav.setVisibility(View.INVISIBLE);
+                    if (recyclerAdapter.getItemCount() == 0) {
+                        fillerAll.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        fillerAll.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    recyclerAdapter.setFavoritesSelected(true);
+//                  // Pass "all" through to specify filter type
+                    recyclerAdapter.getFilter().filter("favorites");
+                    // Filler text
+                    fillerAll.setVisibility(View.INVISIBLE);
+                    if (recyclerAdapter.getItemCount() == 0) {
+                        fillerFav.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        fillerFav.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
 
 }

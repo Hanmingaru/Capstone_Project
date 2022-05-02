@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
 
 import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.adapters.GroceryAdapter;
@@ -116,10 +119,20 @@ public class GroceryActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.grocery_clear) {
-                    groceryDao.deleteAll();
-                    groceries.clear();
-                    adapter.notifyDataSetChanged();
-                    filler.setVisibility(View.VISIBLE);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
+                    builder.setTitle("Delete Recipe");
+                    builder.setMessage("Are you sure you want to clear the grocery list?");
+                    builder.setPositiveButton("Confirm", (DialogInterface dialogInterface, int i) -> {
+                        groceryDao.deleteAll();
+                        groceries.clear();
+                        adapter.notifyDataSetChanged();
+                        filler.setVisibility(View.VISIBLE);
+                    });
+                    builder.setNegativeButton(android.R.string.cancel, (DialogInterface dialogInterface, int i) ->
+                            adapter.notifyDataSetChanged());
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                     return true;
                 }
                 return false;
