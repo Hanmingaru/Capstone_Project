@@ -50,6 +50,7 @@ public class SavedActivity extends AppCompatActivity {
                     Intent intent = new Intent(SavedActivity.this, SwipeActivity.class);
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
                     intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
                     startActivity(intent);
@@ -65,6 +66,7 @@ public class SavedActivity extends AppCompatActivity {
                     Intent intent = new Intent(SavedActivity.this, GroceryActivity.class);
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
                     intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
                     startActivity(intent);
@@ -77,6 +79,7 @@ public class SavedActivity extends AppCompatActivity {
                     intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
                     startActivity(intent);
                     SavedActivity.this.overridePendingTransition(0, 0);
