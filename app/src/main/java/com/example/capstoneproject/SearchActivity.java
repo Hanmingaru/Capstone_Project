@@ -37,7 +37,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private RequestManager manager;
-    private RecyclerView recyclerView;
+    private EmptyRecyclerView recyclerView;
     private Context context;
     private BottomNavigationView bottomNavigationView;
     private String searchQuery;

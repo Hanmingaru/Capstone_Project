@@ -32,7 +32,7 @@ import java.util.List;
 public class GroceryActivity extends AppCompatActivity {
     private List<Grocery> groceries;
     private GroceryAdapter adapter;
-    private RecyclerView recyclerView;
+    private EmptyRecyclerView recyclerView;
     private FloatingActionButton fab;
     private BottomNavigationView bottomNavigationView;
     private TextView filler;
@@ -91,45 +91,12 @@ public class GroceryActivity extends AppCompatActivity {
                 .getRecipeDB().groceryDao();
         groceries = groceryDao.getAll();
         filler = (TextView) findViewById(R.id.grocery_filler);
-
-        if (groceries.size() > 0) {
-            filler.setVisibility(View.INVISIBLE);
-            Log.i("FROM GROCERIES", groceries.size() + "");
-        }
-        else {
-            filler.setVisibility(View.VISIBLE);
-        }
         recyclerView = findViewById(R.id.grocery_recycler_view);
 
         adapter = new GroceryAdapter(GroceryActivity.this, groceries, groceryDao);
-//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-//            public boolean onTouch(View v, MotionEvent m) {
-//                System.out.println(groceries.size());
-//                if (groceries.size() <= 1) {
-//                    filler.setVisibility(View.VISIBLE);
-//                }
-//                else {
-//                    filler.setVisibility(View.INVISIBLE);
-//                }
-//                System.out.println(filler.getVisibility());
-//                return false;
-//            }
-//        });
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println(groceries.size());
-                System.out.println("Hello");
-                if (groceries.size() <= 1) {
-                    filler.setVisibility(View.VISIBLE);
-                }
-                else {
-                    filler.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setEmptyView(filler);
         MaterialToolbar appBar = findViewById(R.id.topAppBar);
         appBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
