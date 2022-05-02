@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        swipedeck:layout_constraintBottom_toTopOf="@id/navbar_fragment_id"
+        swipedeck:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
         swipedeck:layout_constraintEnd_toEndOf="parent"
         swipedeck:layout_constraintStart_toStartOf="parent"
         swipedeck:layout_constraintTop_toBottomOf="@id/appBarLayout">
@@ -57,11 +57,17 @@
 
     </com.daprlabs.cardstack.SwipeFrameLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/navbar_fragment_id"
-        android:name="com.example.capstoneproject.fragments.NavBarFragment"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        swipedeck:layout_constraintBottom_toBottomOf="parent" />
+        android:visibility="visible"
+        app:itemBackground="@color/red"
+        app:itemIconTint="@color/nav_color"
+        app:itemTextColor="@color/nav_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,8 @@
         <activity
             android:name=".GroceryActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true">

@@ -1,21 +1,30 @@
 package com.example.capstoneproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SearchView;
 
+import com.example.capstoneproject.Models.RandomRecipe;
+import com.example.capstoneproject.Models.RecipeNutritionResponse;
 import com.example.capstoneproject.adapters.RecyclerAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
 import com.example.capstoneproject.entities.Recipe;
 import com.example.capstoneproject.fragments.NavBarFragment;
 import com.example.capstoneproject.globals.RecipeApplication;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
@@ -23,18 +32,55 @@ public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
-
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.navbar_fragment_id, NavBarFragment.class, null)
-                    .commit();
-        }
+        bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setSelectedItemId(R.id.recipe);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.swipe ) {
+                    Intent intent = new Intent(SavedActivity.this, SwipeActivity.class);
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
 
+                if (item.getItemId() == R.id.recipe) {
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.grocery) {
+                    Intent intent = new Intent(SavedActivity.this, GroceryActivity.class);
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.search) {
+                    Intent intent = new Intent(SavedActivity.this, SearchActivity.class);
+                    intent.putExtra("searchQuery", getIntent().getStringExtra("searchQuery"));
+                    intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
+                    intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("searchResponses", getIntent().getParcelableArrayListExtra("searchResponses"));
+                    startActivity(intent);
+                    SavedActivity.this.overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
         // Retrieve list of saved recipes from db
         final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().recipeDao();
