@@ -69,6 +69,7 @@ public class SearchActivity extends AppCompatActivity {
                     Intent intent = new Intent(SearchActivity.this, SwipeActivity.class);
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchQuery", searchQuery);
                     intent.putExtra("searchResponses", searchResponses);
                     startActivity(intent);
@@ -80,6 +81,7 @@ public class SearchActivity extends AppCompatActivity {
                     Intent intent = new Intent(SearchActivity.this, SavedActivity.class);
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchQuery", searchQuery);
                     intent.putExtra("searchResponses", searchResponses);
                     startActivity(intent);
@@ -91,6 +93,7 @@ public class SearchActivity extends AppCompatActivity {
                     Intent intent = new Intent(SearchActivity.this, GroceryActivity.class);
                     intent.putParcelableArrayListExtra("swipeRecipe", getIntent().getParcelableArrayListExtra("swipeRecipe"));
                     intent.putExtra("swipeMacros", (RecipeNutritionResponse) getIntent().getParcelableExtra("swipeMacros"));
+                    intent.putExtra("checkedItems", getIntent().getBooleanArrayExtra("checkedItems"));
                     intent.putExtra("searchQuery", searchQuery);
                     intent.putExtra("searchResponses", searchResponses);
                     startActivity(intent);

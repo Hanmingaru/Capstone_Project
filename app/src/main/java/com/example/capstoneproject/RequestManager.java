@@ -1,6 +1,7 @@
 package com.example.capstoneproject;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.example.capstoneproject.Listeners.NutritionAPIResponseListener;
 import com.example.capstoneproject.Listeners.RandomAPIResponseListener;
@@ -34,8 +35,9 @@ public class RequestManager {
     }
 
     public void GetRandomRecipes(RandomAPIResponseListener listener, List<String> tags){
+        String tagQuery = TextUtils.join(",", tags);
         CallRandomRecipe callRandomRecipe = retrofit.create(CallRandomRecipe.class);
-        Call<RandomRecipeResponse> call = callRandomRecipe.callRandomRecipe(context.getString(R.string.api_key), "1", tags );
+        Call<RandomRecipeResponse> call = callRandomRecipe.callRandomRecipe(context.getString(R.string.api_key), "1", tagQuery );
         call.enqueue(new Callback<RandomRecipeResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeResponse> call, Response<RandomRecipeResponse> response) {
@@ -116,7 +118,7 @@ public class RequestManager {
         Call<RandomRecipeResponse> callRandomRecipe(
                 @Header("X-RapidAPI-Key") String api_key,
                 @Query("number") String number,
-                @Query("tags") List<String> tags
+                @Query("tags") String tags
         );
     }
 
