@@ -74,7 +74,9 @@
         app:layout_constraintBottom_toTopOf="@+id/navbar_fragment_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterLinearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/filterLinearLayout"
+        />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navbar_fragment_id"

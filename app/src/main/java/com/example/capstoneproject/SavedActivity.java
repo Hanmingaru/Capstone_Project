@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.capstoneproject.adapters.RecyclerAdapter;
 import com.example.capstoneproject.daos.RecipeDao;
@@ -21,6 +22,7 @@ import java.util.List;
 public class SavedActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    TextView emptyView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
 
@@ -41,10 +43,9 @@ public class SavedActivity extends AppCompatActivity {
 
         savedRecipes = recipeDao.getAll();
 
-
-
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
+
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, savedRecipes, recipeDao);
         this.recyclerAdapter = recyclerAdapter;
         recyclerView.setAdapter(recyclerAdapter);

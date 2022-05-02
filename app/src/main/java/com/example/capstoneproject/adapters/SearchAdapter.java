@@ -5,6 +5,9 @@
 
 package com.example.capstoneproject.adapters;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -89,6 +92,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             @Override
             public void onClick(View view) {
                 Recipe recipe = new Recipe(randomRecipes[index], nutritionResponses[index]);
+                Animator scale = ObjectAnimator.ofPropertyValuesHolder(view,
+                        PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 0.75f, 1),
+                        PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 0.75f, 1)
+                );
+                scale.setDuration(400);
+                scale.start();
                 // Get Recipe Database Access Object
                 final RecipeDao recipeDao = ((RecipeApplication) context.getApplicationContext())
                         .getRecipeDB().recipeDao();

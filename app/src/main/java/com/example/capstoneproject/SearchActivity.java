@@ -56,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
     private final RecipeSearchResponseListener recipeSearchResponseListener = new RecipeSearchResponseListener() {
         @Override
         public void didFetch(List<RecipeSearch> responses, String message) {
