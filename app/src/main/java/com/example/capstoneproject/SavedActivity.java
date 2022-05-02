@@ -30,7 +30,7 @@ import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+    EmptyRecyclerView recyclerView;
     TextView emptyView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
@@ -149,33 +149,15 @@ public class SavedActivity extends AppCompatActivity {
                     recyclerAdapter.setFavoritesSelected(false);
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("all");
-                    // Filler text
-//                    fillerFav.setVisibility(View.INVISIBLE);
-//                    System.out.println(recyclerAdapter.getItemCount());
-//                    System.out.println(recyclerAdapter.getContext());
                     fillerAll.setText("~ You have no saved recipes ~");
-//                    if (recyclerAdapter.getItemCount() == 0) {
-                        fillerAll.setVisibility(View.VISIBLE);
-//                    }
-//                    else {
-//                        fillerAll.setVisibility(View.INVISIBLE);
-//                    }
                 } else {
                     recyclerAdapter.setFavoritesSelected(true);
 //                  // Pass "all" through to specify filter type
                     recyclerAdapter.getFilter().filter("favorites");
-                    // Filler text
-//                    fillerAll.setVisibility(View.INVISIBLE);
-//                    System.out.println(recyclerAdapter.getItemCount());
-//                    System.out.println(recyclerAdapter.getContext());
                     fillerAll.setText("~ You have no favorite recipes ~");
-//                    if (recyclerAdapter.getItemCount() == 0) {
-                        fillerAll.setVisibility(View.VISIBLE);
-//                    }
-//                    else {
-//                        fillerAll.setVisibility(View.INVISIBLE);
-//                    }
                 }
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerView.setEmptyView(fillerAll);
             }
 
             @Override

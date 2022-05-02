@@ -54,24 +54,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.recipeName.setText(savedRecipes.get(position).getName());
-        Picasso.get().load(savedRecipes.get(position).getImageUrl()).into(holder.recipeImage);
+        List<Recipe> recipeList = favoritesSelected ? savedRecipes : savedRecipesFull;
+        holder.recipeName.setText(recipeList.get(position).getName());
+        Picasso.get().load(recipeList.get(position).getImageUrl()).into(holder.recipeImage);
         holder.recipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
-                intent.putExtra("recipeID", savedRecipes.get(holder.getAdapterPosition()).getRecipeID());
+                intent.putExtra("recipeID", recipeList.get(holder.getAdapterPosition()).getRecipeID());
                 context.startActivity(intent);
             }
         });
 
         // Set visibility of favorite icon based off recipes favorite flag
-        holder.favoriteIcon.setVisibility(savedRecipes.get(position).getFavorite() ? View.VISIBLE : View.INVISIBLE);
+        holder.favoriteIcon.setVisibility(recipeList.get(position).getFavorite() ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public int getItemCount() {
-        return savedRecipes.size();
+        if (favoritesSelected) {
+            return savedRecipes.size();
+        }
+        return savedRecipesFull.size();
     }
 
     public Context getContext() {
