@@ -42,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private String searchQuery;
     private ArrayList<RecipeSearch> searchResponses;
+    private TextView filler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.search_recycler_view);
 
         SearchView searchView = findViewById(R.id.search_bar);
+        filler = (TextView) findViewById(R.id.filler);
 
         searchQuery = getIntent().getStringExtra("searchQuery") != null ? getIntent().getStringExtra("searchQuery") : "";
         searchResponses = getIntent().getParcelableArrayListExtra("searchResponses") != null ? getIntent().getParcelableArrayListExtra("searchResponses") : searchResponses;
@@ -107,17 +109,22 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.i("From Query", s);
                 searchQuery = s;
                 manager.SearchRecipe(recipeSearchResponseListener, s);
+                recyclerView.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                recyclerView.setEmptyView(filler);
+                searchResponses.clear();
+                recyclerView.setVisibility(View.INVISIBLE);
                 return false;
             }
         });
