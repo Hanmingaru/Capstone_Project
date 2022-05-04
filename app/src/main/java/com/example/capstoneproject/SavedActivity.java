@@ -26,17 +26,19 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SavedActivity extends AppCompatActivity {
 
     EmptyRecyclerView recyclerView;
-    TextView emptyView;
     RecyclerAdapter recyclerAdapter;
     List<Recipe> savedRecipes;
     private BottomNavigationView bottomNavigationView;
     TextView fillerAll;
-//    TextView fillerFav;
+    boolean isFavorite = false;
+    private ItemTouchHelper itemTouchHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +112,7 @@ public class SavedActivity extends AppCompatActivity {
         recyclerView.setEmptyView(fillerAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+        itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         // Setup SearchView
@@ -131,10 +133,26 @@ public class SavedActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if (recyclerAdapter.getFavoritesSelected()) {
-                    s += "*favorites";
-                }
-                recyclerAdapter.getFilter().filter(s);
+                List<Recipe> filterList = new ArrayList<>();
+                    if (isFavorite) {
+                        for (Recipe recipe : savedRecipes) {
+                            if (recipe.getFavorite() && recipe.getName().toLowerCase().contains(s.toLowerCase()))
+                                filterList.add(recipe);
+                        }
+                    }
+                    else {
+                        for (Recipe recipe : savedRecipes) {
+                            if (recipe.getName().toLowerCase().contains(s.toLowerCase()))
+                                filterList.add(recipe);
+                        }
+                    }
+                final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
+                        .getRecipeDB().recipeDao();
+                itemTouchHelper.attachToRecyclerView(null);
+                final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
+                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+                itemTouchHelper.attachToRecyclerView(recyclerView);
+                recyclerView.setAdapter(recyclerAdapter);
                 return false;
             }
         });
@@ -145,18 +163,27 @@ public class SavedActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // 0 for "All" tab, and 1 or "Favorites" tab selected
-                if (tab.getPosition() == 0) {
-                    recyclerAdapter.setFavoritesSelected(false);
-//                  // Pass "all" through to specify filter type
-                    recyclerAdapter.getFilter().filter("all");
-                    fillerAll.setText("~ You have no saved recipes ~");
-                } else {
-                    recyclerAdapter.setFavoritesSelected(true);
-//                  // Pass "all" through to specify filter type
-                    recyclerAdapter.getFilter().filter("favorites");
-                    fillerAll.setText("~ You have no favorite recipes ~");
+                List<Recipe> filterList = new ArrayList<>();
+                if (tab.getPosition() == 1) {
+                    isFavorite = true;
+                    for (Recipe recipe : savedRecipes) {
+                        if (recipe.getFavorite())
+                            filterList.add(recipe);
+                    }
                 }
+                else {
+                    isFavorite = false;
+                    for (Recipe recipe : savedRecipes) {
+                        filterList.add(recipe);
+                    }
+                }
+                final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
+                        .getRecipeDB().recipeDao();
+                itemTouchHelper.attachToRecyclerView(null);
+                final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
+                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+                itemTouchHelper.attachToRecyclerView(recyclerView);
+                recyclerView.setAdapter(recyclerAdapter);
             }
 
             @Override
