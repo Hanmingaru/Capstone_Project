@@ -234,7 +234,7 @@ public class RandomRecipe implements Parcelable {
         StringBuilder item = new StringBuilder();
         for (int i = 0; i < extendedIngredients.size(); i++ ) {
             ExtendedIngredient ingredient = extendedIngredients.get(i);
-            item.append(String.format("%d) %s %.2f %s\n", i, ingredient.getName(), ingredient.getAmount(), ingredient.getUnit()));
+            item.append(String.format("%d) %s %.2f %s\n", i + 1, ingredient.getName(), ingredient.getAmount(), ingredient.getUnit()));
         }
         return item.toString();
     }
