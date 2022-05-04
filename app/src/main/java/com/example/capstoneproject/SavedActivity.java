@@ -39,6 +39,7 @@ public class SavedActivity extends AppCompatActivity {
     TextView fillerAll;
     boolean isFavorite = false;
     private ItemTouchHelper itemTouchHelper;
+    private RecipeDao recipeDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
         // Retrieve list of saved recipes from db
-        final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
+        recipeDao = ((RecipeApplication)  getApplicationContext())
                 .getRecipeDB().recipeDao();
 
         savedRecipes = recipeDao.getAll();
@@ -133,6 +134,7 @@ public class SavedActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
+                savedRecipes = recipeDao.getAll();
                 List<Recipe> filterList = new ArrayList<>();
                     if (isFavorite) {
                         for (Recipe recipe : savedRecipes) {
@@ -146,8 +148,6 @@ public class SavedActivity extends AppCompatActivity {
                                 filterList.add(recipe);
                         }
                     }
-                final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
-                        .getRecipeDB().recipeDao();
                 itemTouchHelper.attachToRecyclerView(null);
                 final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
                 itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
@@ -163,6 +163,7 @@ public class SavedActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                savedRecipes = recipeDao.getAll();
                 List<Recipe> filterList = new ArrayList<>();
                 if (tab.getPosition() == 1) {
                     isFavorite = true;
@@ -177,8 +178,6 @@ public class SavedActivity extends AppCompatActivity {
                         filterList.add(recipe);
                     }
                 }
-                final RecipeDao recipeDao = ((RecipeApplication)  getApplicationContext())
-                        .getRecipeDB().recipeDao();
                 itemTouchHelper.attachToRecyclerView(null);
                 final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
                 itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
