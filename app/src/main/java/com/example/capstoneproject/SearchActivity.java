@@ -62,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setQuery(searchQuery, false);
         SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , searchResponses, manager);
         recyclerView.setAdapter(searchAdapter);
+        recyclerView.setEmptyView(filler);
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -122,9 +123,9 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                recyclerView.setEmptyView(filler);
                 searchResponses.clear();
-                recyclerView.setVisibility(View.INVISIBLE);
+                SearchAdapter searchAdapter = new SearchAdapter(SearchActivity.this , searchResponses, manager);
+                recyclerView.setAdapter(searchAdapter);
                 return false;
             }
         });
