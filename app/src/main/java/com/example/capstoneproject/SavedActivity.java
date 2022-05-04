@@ -113,7 +113,7 @@ public class SavedActivity extends AppCompatActivity {
         recyclerView.setEmptyView(fillerAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+        itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter, isFavorite));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         // Setup SearchView
@@ -150,7 +150,7 @@ public class SavedActivity extends AppCompatActivity {
                     }
                 itemTouchHelper.attachToRecyclerView(null);
                 final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
-                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter, isFavorite));
                 itemTouchHelper.attachToRecyclerView(recyclerView);
                 recyclerView.setAdapter(recyclerAdapter);
                 return false;
@@ -180,7 +180,7 @@ public class SavedActivity extends AppCompatActivity {
                 }
                 itemTouchHelper.attachToRecyclerView(null);
                 final RecyclerAdapter recyclerAdapter = new RecyclerAdapter(SavedActivity.this, filterList, recipeDao);
-                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
+                itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter, isFavorite));
                 itemTouchHelper.attachToRecyclerView(recyclerView);
                 recyclerView.setAdapter(recyclerAdapter);
             }

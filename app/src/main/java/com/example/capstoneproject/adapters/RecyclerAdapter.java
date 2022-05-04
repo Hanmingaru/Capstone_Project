@@ -82,7 +82,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         notifyItemRemoved(position);
     }
 
-    public void updateFavorite(int position) {
+    public void updateFavorite(int position, boolean isFavorite) {
         Recipe recipe = savedRecipes.get(position);
         String message;
         if (recipe.getFavorite()) { // If true, set to false
@@ -91,6 +91,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         } else {    // If false, set to true
             recipe.setFavorite(true);
             message = "Added to favorites";
+        }
+        if (isFavorite) {
+            savedRecipes.remove(position);
+            notifyItemRemoved(position);
         }
         recipeDao.updateRecipeID(recipe.getRecipeID(), recipe.getFavorite());
         // Show popup message
