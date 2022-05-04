@@ -107,6 +107,7 @@ public class SavedActivity extends AppCompatActivity {
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, savedRecipes, recipeDao);
         this.recyclerAdapter = recyclerAdapter;
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setEmptyView(fillerAll);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(recyclerAdapter));
@@ -156,8 +157,6 @@ public class SavedActivity extends AppCompatActivity {
                     recyclerAdapter.getFilter().filter("favorites");
                     fillerAll.setText("~ You have no favorite recipes ~");
                 }
-                recyclerView.setAdapter(recyclerAdapter);
-                recyclerView.setEmptyView(fillerAll);
             }
 
             @Override
