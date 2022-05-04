@@ -81,7 +81,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, RecipeInfoActivity.class);
-                Log.i("INDEX", index + "");
                 intent.putExtra("recipeID", searchedRecipes.get(index).getId());
                 intent.putExtra("recipe", randomRecipes[index]);
                 intent.putExtra("nutrition", nutritionResponses[index]);

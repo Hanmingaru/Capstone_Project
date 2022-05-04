@@ -21,10 +21,11 @@ import com.example.capstoneproject.adapters.RecyclerAdapter;
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     private final RecyclerAdapter recyclerAdapter;
-
-    public RecyclerItemTouchHelper(RecyclerAdapter recyclerAdapter) {
+    private boolean isFavorite;
+    public RecyclerItemTouchHelper(RecyclerAdapter recyclerAdapter, boolean isFavorite) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.recyclerAdapter = recyclerAdapter;
+        this.isFavorite = isFavorite;
     }
 
 
@@ -50,7 +51,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            recyclerAdapter.updateFavorite(position);
+            recyclerAdapter.updateFavorite(position, isFavorite);
             recyclerAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
         }
     }

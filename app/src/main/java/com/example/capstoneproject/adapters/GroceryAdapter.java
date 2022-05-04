@@ -68,10 +68,6 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.MyViewHo
         groceries.remove(index);
         notifyItemRemoved(index);
         notifyItemRangeChanged(index,groceries.size());
-
-        Log.i("INDEX", index + "");
-        Log.i("LIST LENGTH", groceries.size() + "");
-        Log.i("DB LENGTH", groceryDao.getAll().size() + "");
     }
     @Override
     public int getItemCount() {
